@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  /* Drakken brand (designer brief, section 6). "teal" names kept from the
+     reference build; they now carry Drakken's dark greens. */
+  --color-bg: #f3f1eb;
+  --color-surface: #e8e5dc;
+  --color-surface-2: #e2dfd5;
+  --color-line: #cfcabc;
+  --color-ink: #10221d;
+  --color-muted: #666666;
+  --color-teal: #1d3d34;
+  --color-teal-2: #234b41;
+  --color-accent: #00a05f;
+  --color-logo: #159956;
+  --color-lime: #d8e0a7;
+  --color-lime-2: #c8d28f;
+
+  --font-sans: var(--font-geist), system-ui, sans-serif;
+  --font-mono: var(--font-pt-mono), ui-monospace, monospace;
+
+  --ease-framer: cubic-bezier(0.44, 0, 0.56, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Type scale measured from the reference layout, fluid below desktop. */
+@utility text-hero {
+  font-size: clamp(2.5rem, 5vw + 0.5rem, 4rem);
+  line-height: 1.2;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+@utility text-h2 {
+  font-size: clamp(2.25rem, 4.5vw, 3.8rem);
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+}
+@utility text-lead {
+  font-size: clamp(1.625rem, 3vw, 2.375rem);
+  line-height: 1.2;
+  letter-spacing: -0.05em;
+}
+@utility text-body-lg {
+  font-size: 1.14rem;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+}
+@utility text-body {
+  font-size: 0.94rem;
+  line-height: 1.35;
+  letter-spacing: -0.03em;
+}
+@utility text-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.81rem;
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 3px;
+}
+
+.plus-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M22 15v14M15 22h14' stroke='%231d3d34' stroke-opacity='.12' stroke-width='1.5'/%3E%3C/svg%3E");
+}
