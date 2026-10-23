@@ -68,8 +68,12 @@ export function Hero() {
           {hero.title[0]} <br className="hidden lg:block" />
           {hero.title[1]}
         </motion.h1>
-        <motion.p {...rise(0.35)} className="text-body-lg max-w-[560px] text-white/85">
-          {hero.subtitle}
+        <motion.p
+          {...rise(0.35)}
+          className="max-w-[560px] text-balance text-[clamp(1.05rem,1.4vw,1.25rem)] leading-[1.4] tracking-[-0.02em] text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] lg:max-w-none lg:text-nowrap"
+        >
+          {hero.subtitle[0]} <br className="hidden lg:block" />
+          {hero.subtitle[1]}
         </motion.p>
         <motion.div {...rise(0.5)} className="flex flex-wrap justify-center gap-3">
           {hero.ctas.map((c) => (

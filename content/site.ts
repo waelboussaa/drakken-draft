@@ -33,8 +33,11 @@ export const nav = {
 export const hero = {
   // Shown as two lines on desktop; wraps naturally on small screens.
   title: ["E&I and automation EPC for the world's", "toughest oil, gas and power projects"],
-  subtitle:
-    "We engineer, fabricate, procure and commission power distribution, E-houses, control systems and instrumentation — from Dubai and Calgary to the field.",
+  // Two lines on desktop. "E‑houses" uses a non-breaking hyphen so it never splits.
+  subtitle: [
+    "We engineer, fabricate, procure and commission power distribution, E‑houses,",
+    "control systems and instrumentation — from Dubai and Calgary to the field.",
+  ],
   ctas: [
     { label: "See Our Projects", href: "/projects", variant: "lime" as const },
     { label: "Speak to an Engineer", href: "/#contact", variant: "glass" as const },
