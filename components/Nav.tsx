@@ -19,7 +19,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 export function Nav() {
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
-  // Every page opens on a dark hero: the bar stays clear over it and turns solid once scrolled past.
+  // Frosted glass throughout: lighter over the dark hero, a deeper green tint once scrolled past it.
   const [solid, setSolid] = useState(false);
 
   useEffect(() => {
@@ -29,21 +29,19 @@ export function Nav() {
     return () => window.removeEventListener("scroll", update);
   }, []);
 
-  const light = solid || mobile || open !== null;
+  const tinted = solid || mobile || open !== null;
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-4 pt-4">
       <nav
-        className={`border transition-colors duration-300 ${
-          light
-            ? "border-line bg-bg/95 text-ink backdrop-blur-md"
-            : "border-white/15 bg-teal-2/30 text-white backdrop-blur-md"
+        className={`border border-white/15 text-white shadow-[0_8px_32px_rgba(16,34,29,0.18)] backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 ${
+          tinted ? "bg-teal/80" : "bg-white/10"
         }`}
         onMouseLeave={() => setOpen(null)}
       >
         <div className="flex h-16 items-center justify-between gap-8 pl-4 pr-3">
           <div className="flex items-center gap-10">
-            <Logo className={`h-5 ${light ? "text-logo" : "text-white"}`} />
+            <Logo className="h-5 text-white" />
             <ul className="hidden items-center gap-8 md:flex">
               {nav.links.map((l) =>
                 l.children ? (
@@ -100,7 +98,7 @@ export function Nav() {
               transition={{ duration: 0.3, ease: [0.44, 0, 0.56, 1] }}
               className="overflow-hidden px-4"
             >
-              <ul className="flex flex-col gap-3 border-t border-line pb-5 pt-4" onClick={() => setMobile(false)}>
+              <ul className="flex flex-col gap-3 border-t border-current/15 pb-5 pt-4" onClick={() => setMobile(false)}>
                 {mobile
                   ? [...nav.links, nav.cta].map((c) => (
                       <li key={c.label}>
