@@ -21,8 +21,10 @@
   --color-accent-strong: #027747;
   --color-accent-light: #1fbf7a;
   --color-logo: #159956;
-  --color-lime: #d8e0a7;
-  --color-lime-2: #c8d28f;
+  /* "lime" name kept from the reference build; it now carries a warm
+     off-white sampled from the header reference. */
+  --color-lime: #edebe5;
+  --color-lime-2: #e0ddd4;
 
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-mono: var(--font-pt-mono), ui-monospace, monospace;
