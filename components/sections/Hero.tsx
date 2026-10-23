@@ -3,9 +3,8 @@
 import Image from "next/image";
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
-import { hero, offices } from "@/content/site";
+import { hero } from "@/content/site";
 import { ArrowButton } from "@/components/ui/ArrowButton";
-import { SectionLabel } from "@/components/ui/SectionLabel";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -32,7 +31,7 @@ export function Hero() {
   });
 
   return (
-    <section ref={ref} className="relative flex h-svh min-h-[720px] flex-col overflow-hidden px-4 pb-6 pt-28 text-white">
+    <section ref={ref} className="relative flex h-svh min-h-[680px] flex-col overflow-hidden px-4 pb-4 pt-8 text-white md:px-8">
       <motion.div className="absolute inset-0 -z-10 bg-teal" style={{ y }}>
         <motion.div
           className="absolute inset-0"
@@ -55,55 +54,45 @@ export function Hero() {
             <Image src={hero.image.src} alt={hero.image.alt} fill priority sizes="100vw" className="object-cover grayscale-[0.75]" />
           )}
         </motion.div>
-        {/* Darkest at the bottom where the headline sits, lighter above so the photo reads. */}
-        <div className="absolute inset-0 bg-gradient-to-t from-teal via-teal/70 to-teal/35" />
-        <div className="absolute inset-x-0 top-0 h-40 bg-gradient-to-b from-teal-2/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-b from-teal/85 via-teal/65 to-teal/90" />
+        {/* Extra darkening behind the headline so it stays legible over bright plant lights. */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(16,34,29,0.55),transparent)]" />
       </motion.div>
       <GridLines />
 
-      <div className="relative mt-auto grid gap-8 lg:grid-cols-12 lg:items-end">
-        <div className="flex flex-col items-start gap-6 lg:col-span-8">
-          <motion.div {...rise(0.1)}>
-            <SectionLabel>{hero.eyebrow}</SectionLabel>
-          </motion.div>
-          <motion.h1
-            {...rise(0.2)}
-            className="text-balance text-[clamp(2.75rem,6.2vw,6rem)] font-medium leading-[0.98] tracking-[-0.045em] [text-shadow:0_2px_24px_rgba(0,0,0,0.25)]"
-          >
-            {hero.title}
-          </motion.h1>
-        </div>
-        <div className="flex flex-col items-start gap-6 lg:col-span-4 lg:pb-2">
-          <motion.p
-            {...rise(0.35)}
-            className="max-w-[460px] text-[clamp(1.05rem,1.3vw,1.2rem)] leading-[1.4] tracking-[-0.02em] text-white/85"
-          >
-            {hero.subtitle}
-          </motion.p>
-          <motion.div {...rise(0.5)} className="flex flex-wrap gap-3">
-            {hero.ctas.map((c) => (
-              <ArrowButton key={c.label} href={c.href} variant={c.variant}>
-                {c.label}
-              </ArrowButton>
-            ))}
-          </motion.div>
-        </div>
+      <div className="relative flex flex-1 flex-col items-center justify-center gap-6 text-center">
+        <motion.h1
+          {...rise(0.2)}
+          className="text-balance text-[clamp(2.25rem,4.8vw,3.75rem)] font-medium leading-[1.1] tracking-[-0.03em] [text-shadow:0_2px_24px_rgba(0,0,0,0.35)] lg:text-nowrap"
+        >
+          {hero.title[0]} <br className="hidden lg:block" />
+          {hero.title[1]}
+        </motion.h1>
+        <motion.p
+          {...rise(0.35)}
+          className="max-w-[560px] text-balance text-[clamp(1.05rem,1.4vw,1.25rem)] leading-[1.4] tracking-[-0.02em] text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] lg:max-w-none lg:text-nowrap"
+        >
+          {hero.subtitle[0]} <br className="hidden lg:block" />
+          {hero.subtitle[1]}
+        </motion.p>
+        <motion.div {...rise(0.5)} className="flex flex-wrap justify-center gap-3">
+          {hero.ctas.map((c) => (
+            <ArrowButton key={c.label} href={c.href} variant={c.variant}>
+              {c.label}
+            </ArrowButton>
+          ))}
+        </motion.div>
       </div>
 
-      <motion.div
-        className="relative mt-10 flex items-center justify-end border-t border-white/15 pt-4 sm:justify-between text-eyebrow text-white/70"
+      <motion.a
+        href="#proof"
+        className="relative self-center text-eyebrow"
         initial={reduce ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
       >
-        <span className="hidden sm:inline">{offices.map((o) => `${o.city} — ${o.role}`).join("  /  ")}</span>
-        <a href="#proof" className="flex items-center gap-2 hover:text-white">
-          Scroll
-          <svg viewBox="0 0 12 12" className="size-3" aria-hidden>
-            <path d="M6 1v10M2 7l4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.2" />
-          </svg>
-        </a>
-      </motion.div>
+        Scroll Down
+      </motion.a>
     </section>
   );
 }
