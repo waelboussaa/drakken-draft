@@ -31,7 +31,8 @@ export const nav = {
 };
 
 export const hero = {
-  title: "E&I and automation EPC for the world's toughest oil, gas and power projects",
+  // Shown as two lines on desktop; wraps naturally on small screens.
+  title: ["E&I and automation EPC for the world's", "toughest oil, gas and power projects"],
   subtitle:
     "We engineer, fabricate, procure and commission power distribution, E-houses, control systems and instrumentation — from Dubai and Calgary to the field.",
   ctas: [

@@ -54,13 +54,19 @@ export function Hero() {
             <Image src={hero.image.src} alt={hero.image.alt} fill priority sizes="100vw" className="object-cover" />
           )}
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-teal/70 via-teal/40 to-teal/80" />
+        <div className="absolute inset-0 bg-gradient-to-b from-teal/75 via-teal/55 to-teal/85" />
+        {/* Extra darkening behind the headline so it stays legible over bright plant lights. */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(16,34,29,0.55),transparent)]" />
       </motion.div>
       <GridLines />
 
       <div className="relative flex flex-1 flex-col items-center justify-center gap-6 text-center">
-        <motion.h1 {...rise(0.2)} className="text-hero max-w-[940px] text-balance">
-          {hero.title}
+        <motion.h1
+          {...rise(0.2)}
+          className="text-balance text-[clamp(2.25rem,4.8vw,3.75rem)] font-medium leading-[1.1] tracking-[-0.03em] [text-shadow:0_2px_24px_rgba(0,0,0,0.35)] lg:text-nowrap"
+        >
+          {hero.title[0]} <br className="hidden lg:block" />
+          {hero.title[1]}
         </motion.h1>
         <motion.p {...rise(0.35)} className="text-body-lg max-w-[560px] text-white/85">
           {hero.subtitle}
