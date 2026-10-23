@@ -48,8 +48,8 @@ export default async function CaseStudyPage({ params }: Props) {
     <article>
       {/* Hero */}
       <header className="relative isolate flex min-h-[80svh] flex-col justify-end overflow-hidden px-4 pb-10 pt-40 text-white">
-        <Image src={c.image.src} alt={c.image.alt} fill priority sizes="100vw" className="-z-10 object-cover" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-teal via-teal/50 to-teal/30" />
+        <Image src={c.image.src} alt={c.image.alt} fill priority sizes="100vw" className="-z-10 object-cover grayscale-[0.6]" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-teal via-teal/60 to-teal/40" />
         <GridLines />
         <div className="relative flex max-w-[900px] flex-col items-start gap-5">
           <span className="flex flex-wrap items-center gap-2">

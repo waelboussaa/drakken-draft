@@ -10,12 +10,16 @@
   /* Text uses Drakken's secondary green, as headings do on drakken.co. */
   --color-ink: #1d3d34;
   --color-muted: #666666;
-  --color-teal: #1d3d34;
-  --color-teal-2: #234b41;
-  /* Logo green. Bright form for large text, icons and fills; the deeper
-     form (drakken.co's own button colour) carries white text at AA contrast. */
+  /* Dark backgrounds use Drakken's primary green; the secondary green is
+     kept for dividers and inset panels. */
+  --color-teal: #234b41;
+  --color-teal-2: #1d3d34;
+  /* Logo green. Bright form for icons and fills; the deeper form (drakken.co's
+     own button colour) carries white text at AA contrast; the light form keeps
+     large green text above 3:1 on the primary-green backgrounds. */
   --color-accent: #00a05f;
   --color-accent-strong: #027747;
+  --color-accent-light: #1fbf7a;
   --color-logo: #159956;
   --color-lime: #d8e0a7;
   --color-lime-2: #c8d28f;

@@ -11,7 +11,7 @@ export function Proof() {
       <div className="grid grid-cols-2 gap-px bg-teal-2 md:grid-cols-5">
         {proof.stats.map((s) => (
           <div key={s.label} className="flex flex-col gap-3 bg-teal px-4 py-10 md:px-6 md:py-14">
-            <span className="text-[clamp(2.75rem,5vw,4rem)] font-medium text-accent leading-none tracking-[-0.04em]">
+            <span className="text-[clamp(2.75rem,5vw,4rem)] font-medium text-accent-light leading-none tracking-[-0.04em]">
               <Counter value={s.value} suffix={s.suffix} />
             </span>
             <span className="flex items-center gap-2 text-body text-bg/75">

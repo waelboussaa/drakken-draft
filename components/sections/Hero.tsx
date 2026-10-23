@@ -41,7 +41,7 @@ export function Hero() {
         >
           {hero.video ? (
             <video
-              className="size-full object-cover"
+              className="size-full object-cover grayscale-[0.75]"
               src={hero.video}
               poster={hero.image.src}
               autoPlay={!reduce}
@@ -51,10 +51,10 @@ export function Hero() {
               aria-label={hero.image.alt}
             />
           ) : (
-            <Image src={hero.image.src} alt={hero.image.alt} fill priority sizes="100vw" className="object-cover" />
+            <Image src={hero.image.src} alt={hero.image.alt} fill priority sizes="100vw" className="object-cover grayscale-[0.75]" />
           )}
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-teal-2/80 via-teal-2/60 to-teal/90" />
+        <div className="absolute inset-0 bg-gradient-to-b from-teal/85 via-teal/65 to-teal/90" />
         {/* Extra darkening behind the headline so it stays legible over bright plant lights. */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(16,34,29,0.55),transparent)]" />
       </motion.div>
