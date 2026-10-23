@@ -1,9 +1,37 @@
 "use client";
 
-import { motion, useScroll, useSpring, useReducedMotion } from "motion/react";
+import { motion, useScroll, useSpring, useReducedMotion, useTransform, type MotionValue } from "motion/react";
 import { useRef } from "react";
 import { process } from "@/content/site";
 import { SectionHead } from "@/components/ui/SectionHead";
+
+/** One phase: its dot, number and copy light up as the line reaches it. */
+function Step({ step, i, total, progress, reduce }: { step: (typeof process.steps)[number]; i: number; total: number; progress: MotionValue<number>; reduce: boolean | null }) {
+  // The line reaches this step at `at`; it eases in over the stretch just before.
+  const at = (i / (total - 1)) * 0.92;
+  const from = Math.max(at - 0.14, 0);
+  const lit = useTransform(progress, [from, at], [0, 1]);
+  const copyOpacity = useTransform(lit, [0, 1], [0.3, 1]);
+  const dotScale = useTransform(lit, [0, 1], [0.7, 1]);
+  const dotFill = useTransform(lit, [0, 1], [0, 1]);
+  const copyY = useTransform(lit, [0, 1], [10, 0]);
+
+  return (
+    <li className="relative flex gap-6 md:flex-col md:pr-6">
+      <motion.span
+        className="relative z-10 grid size-6 shrink-0 place-items-center rounded-full border border-accent bg-teal"
+        style={reduce ? undefined : { scale: dotScale }}
+      >
+        <motion.span className="size-2 rounded-full bg-accent" style={reduce ? undefined : { opacity: dotFill, scale: dotFill }} />
+      </motion.span>
+      <motion.div className="flex flex-col gap-3" style={reduce ? undefined : { opacity: copyOpacity, y: copyY }}>
+        <span className="text-[clamp(3rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.05em] text-accent-light md:mt-4">0{i + 1}</span>
+        <h3 className="text-[clamp(1.5rem,2.2vw,1.9rem)] font-medium tracking-[-0.04em]">{step.title}</h3>
+        <p className="text-body max-w-[260px] text-bg/70">{step.text}</p>
+      </motion.div>
+    </li>
+  );
+}
 
 /** Five delivery phases as a line that fills as you scroll past it. */
 export function Process() {
@@ -30,16 +58,7 @@ export function Process() {
           style={reduce ? undefined : { scaleX: progress }}
         />
         {process.steps.map((s, i) => (
-          <li key={s.title} className="relative flex gap-6 md:flex-col md:pr-6">
-            <span className="relative z-10 grid size-6 shrink-0 place-items-center rounded-full border border-accent bg-teal">
-              <span className="size-2 rounded-full bg-accent" />
-            </span>
-            <div className="flex flex-col gap-3">
-              <span className="text-[clamp(3rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.05em] text-accent-light md:mt-4">0{i + 1}</span>
-              <h3 className="text-[clamp(1.5rem,2.2vw,1.9rem)] font-medium tracking-[-0.04em]">{s.title}</h3>
-              <p className="text-body max-w-[260px] text-bg/70">{s.text}</p>
-            </div>
-          </li>
+          <Step key={s.title} step={s} i={i} total={process.steps.length} progress={progress} reduce={reduce} />
         ))}
       </ol>
     </section>

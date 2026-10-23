@@ -6,13 +6,21 @@ import { useRef } from "react";
 import { hero } from "@/content/site";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const ease = [0.22, 1, 0.36, 1] as const;
 
 export function GridLines({ className = "border-white/15" }: { className?: string }) {
+  const reduce = useReducedMotion();
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 flex px-4">
+      {/* Each column line draws down from the top, one after another. */}
       {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className={`flex-1 border-l last:border-r ${className}`} />
+        <motion.div
+          key={i}
+          className={`flex-1 origin-top border-l last:border-r ${className}`}
+          initial={reduce ? false : { scaleY: 0 }}
+          animate={{ scaleY: 1 }}
+          transition={{ duration: 1.6, delay: 0.15 * i, ease }}
+        />
       ))}
     </div>
   );
@@ -23,11 +31,15 @@ export function Hero() {
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "18%"]);
+  // The copy drifts up and fades as the hero scrolls away, instead of being dragged along with the photo.
+  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, reduce ? 1 : 0]);
+  const copyY = useTransform(scrollYProgress, [0, 1], ["0px", reduce ? "0px" : "-80px"]);
 
   const rise = (delay: number) => ({
-    initial: reduce ? false : { opacity: 0, y: 32, filter: "blur(8px)" },
-    animate: { opacity: 1, y: 0, filter: "blur(0px)" },
-    transition: { duration: 1, delay, ease },
+    // Opacity and transform only: a blur filter repaints every frame and stutters on phones.
+    initial: reduce ? false : { opacity: 0, y: 40 },
+    animate: { opacity: 1, y: 0 },
+    transition: { duration: 1.1, delay, ease },
   });
 
   return (
@@ -60,7 +72,7 @@ export function Hero() {
       </motion.div>
       <GridLines />
 
-      <div className="relative flex flex-1 flex-col items-center justify-center gap-6 text-center">
+      <motion.div style={{ opacity: copyOpacity, y: copyY }} className="relative flex flex-1 flex-col items-center justify-center gap-6 text-center">
         <motion.h1
           {...rise(0.2)}
           className="text-balance text-[clamp(2.25rem,4.8vw,3.75rem)] font-medium leading-[1.1] tracking-[-0.03em] [text-shadow:0_2px_24px_rgba(0,0,0,0.35)] lg:text-nowrap"
@@ -82,14 +94,14 @@ export function Hero() {
             </ArrowButton>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
       <motion.a
         href="#proof"
         className="relative self-center text-eyebrow"
         initial={reduce ? false : { opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
+        animate={reduce ? { opacity: 1 } : { opacity: 1, y: [0, 6, 0] }}
+        transition={{ opacity: { delay: 1.2, duration: 0.8 }, y: { delay: 2, duration: 2.4, repeat: Infinity, ease: "easeInOut" } }}
       >
         Scroll Down
       </motion.a>

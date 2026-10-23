@@ -10,7 +10,7 @@ import { Label } from "@/components/ui/Label";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead } from "@/components/ui/SectionHead";
 
-const ease = [0.16, 1, 0.3, 1] as const;
+const ease = [0.22, 1, 0.36, 1] as const;
 
 function Card({ item }: { item: (typeof services.items)[number] }) {
   const Icon = icons[item.icon];
@@ -19,9 +19,9 @@ function Card({ item }: { item: (typeof services.items)[number] }) {
       <Link
         href={item.href}
         data-cursor="plus"
-        className="relative flex aspect-[4/5] h-full flex-col justify-end overflow-hidden bg-teal p-6 text-white md:aspect-auto md:min-h-[560px] md:p-8"
+        className="group relative flex aspect-[4/5] h-full flex-col justify-end overflow-hidden bg-teal p-6 text-white md:aspect-auto md:min-h-[560px] md:p-8"
       >
-        <Image src={item.image.src} alt={item.image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover" />
+        <Image src={item.image.src} alt={item.image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
         <div className="absolute inset-0 bg-gradient-to-t from-teal via-teal/40 to-teal/10" />
         <span className="absolute right-4 top-4 grid size-7 place-items-center rounded-full bg-white/25 backdrop-blur-[5px]">
           <motion.svg variants={{ rest: { rotate: 0 }, hover: { rotate: 45 } }} viewBox="0 0 12 12" className="size-3" aria-hidden>
@@ -44,7 +44,7 @@ function Card({ item }: { item: (typeof services.items)[number] }) {
 
         <motion.div
           variants={{ rest: { clipPath: "inset(100% 0 0 0)" }, hover: { clipPath: "inset(0% 0 0 0)" } }}
-          transition={{ duration: 0.6, ease }}
+          transition={{ duration: 0.7, ease }}
           className="absolute inset-0 flex flex-col justify-between bg-lime p-6 text-teal md:p-8"
         >
           <Label tone="dark" mono>

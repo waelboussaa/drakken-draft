@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { nav } from "@/content/site";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { Logo } from "@/components/ui/Logo";
@@ -17,6 +17,7 @@ function NavLink({ href, children }: { href: string; children: React.ReactNode }
 }
 
 export function Nav() {
+  const reduce = useReducedMotion();
   const [open, setOpen] = useState<string | null>(null);
   const [mobile, setMobile] = useState(false);
   // Frosted glass throughout: lighter over the dark hero, a deeper green tint once scrolled past it.
@@ -33,7 +34,10 @@ export function Nav() {
 
   return (
     <header className="pointer-events-none fixed inset-x-4 top-4 z-50 flex items-start justify-between">
-      <nav
+      <motion.nav
+        initial={reduce ? false : { opacity: 0, y: -24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         className={`pointer-events-auto w-full border border-white/15 md:w-auto text-white shadow-[0_8px_32px_rgba(16,34,29,0.18)] backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 ${
           tinted ? "bg-teal/80" : "bg-white/10"
         }`}
@@ -109,13 +113,18 @@ export function Nav() {
             </motion.div>
           )}
         </AnimatePresence>
-      </nav>
+      </motion.nav>
 
-      <div className="pointer-events-auto hidden md:block">
+      <motion.div
+        className="pointer-events-auto hidden md:block"
+        initial={reduce ? false : { opacity: 0, y: -24 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.35, ease: [0.22, 1, 0.36, 1] }}
+      >
         <ArrowButton href={nav.cta.href} variant="green">
           {nav.cta.label}
         </ArrowButton>
-      </div>
+      </motion.div>
     </header>
   );
 }
