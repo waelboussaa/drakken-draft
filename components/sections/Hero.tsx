@@ -54,7 +54,7 @@ export function Hero() {
             <Image src={hero.image.src} alt={hero.image.alt} fill priority sizes="100vw" className="object-cover" />
           )}
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-teal/75 via-teal/55 to-teal/85" />
+        <div className="absolute inset-0 bg-gradient-to-b from-teal-2/80 via-teal-2/60 to-teal/90" />
         {/* Extra darkening behind the headline so it stays legible over bright plant lights. */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(16,34,29,0.55),transparent)]" />
       </motion.div>

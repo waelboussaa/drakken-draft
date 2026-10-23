@@ -1,13 +1,18 @@
+const tones = {
+  green: "bg-accent-strong text-white",
+  lime: "bg-lime text-teal",
+  dark: "bg-teal text-bg",
+};
+
 export function Label({
   children,
-  tone = "lime",
+  tone = "green",
   mono = false,
 }: {
   children: React.ReactNode;
-  tone?: "lime" | "dark";
+  tone?: keyof typeof tones;
   mono?: boolean;
 }) {
-  const color = tone === "lime" ? "bg-lime text-teal" : "bg-teal text-lime";
   const type = mono ? "text-eyebrow" : "text-[15px] tracking-[-0.03em]";
-  return <span className={`inline-flex p-2 ${color} ${type}`}>{children}</span>;
+  return <span className={`inline-flex p-2 ${tones[tone]} ${type}`}>{children}</span>;
 }

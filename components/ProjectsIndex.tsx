@@ -20,7 +20,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
       onClick={onClick}
       aria-pressed={active}
       className={`whitespace-nowrap rounded-[22px] px-3.5 py-2 text-[14px] tracking-[-0.02em] transition-colors ${
-        active ? "bg-teal text-lime" : "bg-surface text-ink hover:bg-lime"
+        active ? "bg-teal text-bg" : "bg-surface text-ink hover:bg-lime"
       }`}
     >
       {children}

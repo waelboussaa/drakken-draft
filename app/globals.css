@@ -7,11 +7,15 @@
   --color-surface: #e8e5dc;
   --color-surface-2: #e2dfd5;
   --color-line: #cfcabc;
-  --color-ink: #10221d;
+  /* Text uses Drakken's secondary green, as headings do on drakken.co. */
+  --color-ink: #1d3d34;
   --color-muted: #666666;
   --color-teal: #1d3d34;
   --color-teal-2: #234b41;
+  /* Logo green. Bright form for large text, icons and fills; the deeper
+     form (drakken.co's own button colour) carries white text at AA contrast. */
   --color-accent: #00a05f;
+  --color-accent-strong: #027747;
   --color-logo: #159956;
   --color-lime: #d8e0a7;
   --color-lime-2: #c8d28f;

@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col gap-2 bg-teal px-4 py-5 md:px-6">
-      <dt className="text-eyebrow text-lime/60">{label}</dt>
+      <dt className="text-eyebrow text-bg/55">{label}</dt>
       <dd className="text-body-lg text-bg">{children}</dd>
     </div>
   );

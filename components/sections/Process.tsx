@@ -39,8 +39,8 @@ export function Process() {
               <span className="size-2 rounded-full bg-accent" />
             </span>
             <div className="flex flex-col gap-3">
-              <span className="text-eyebrow text-lime/60">0{i + 1}</span>
-              <h3 className="text-[clamp(1.5rem,2.2vw,1.9rem)] font-medium tracking-[-0.04em] text-lime">{s.title}</h3>
+              <span className="text-eyebrow text-bg/55">0{i + 1}</span>
+              <h3 className="text-[clamp(1.5rem,2.2vw,1.9rem)] font-medium tracking-[-0.04em] text-accent">{s.title}</h3>
               <p className="text-body max-w-[260px] text-bg/70">{s.text}</p>
             </div>
           </li>

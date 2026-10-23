@@ -39,7 +39,7 @@ export const hero = {
     "control systems and instrumentation — from Dubai and Calgary to the field.",
   ],
   ctas: [
-    { label: "See Our Projects", href: "/projects", variant: "lime" as const },
+    { label: "See Our Projects", href: "/projects", variant: "green" as const },
     { label: "Speak to an Engineer", href: "/#contact", variant: "glass" as const },
   ],
   // Set `video` to an MP4 in /public (e.g. "/media/hero.mp4") to switch the hero to video.

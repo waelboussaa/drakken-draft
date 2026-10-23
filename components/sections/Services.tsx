@@ -28,7 +28,7 @@ function Card({ item }: { item: (typeof services.items)[number] }) {
           </motion.svg>
         </span>
         <div className="relative flex flex-col gap-4">
-          <div className="size-12 text-lime">
+          <div className="size-12 text-accent">
             <Icon />
           </div>
           <h3 className="text-[clamp(1.5rem,2.4vw,2rem)] font-medium leading-tight tracking-[-0.04em]">{item.title}</h3>
@@ -58,7 +58,7 @@ function Card({ item }: { item: (typeof services.items)[number] }) {
           </ul>
           <span className="flex items-center justify-between">
             <span className="text-[clamp(1.25rem,2vw,1.6rem)] font-medium tracking-[-0.04em]">{item.title}</span>
-            <span className="grid size-[38px] place-items-center rounded-full bg-teal text-lime">
+            <span className="grid size-[38px] place-items-center rounded-full bg-teal text-bg">
               <Arrow />
             </span>
           </span>

@@ -13,7 +13,7 @@ export function Testimonials() {
         {testimonials.items.map((t, i) => (
           <Reveal key={i} delay={i * 0.08} className="h-full">
             <figure className="flex h-full flex-col justify-between gap-10 bg-teal p-6 md:p-8">
-              <blockquote className="text-[clamp(1.35rem,2vw,1.6rem)] leading-snug tracking-[-0.04em] text-lime">
+              <blockquote className="text-[clamp(1.35rem,2vw,1.6rem)] leading-snug tracking-[-0.04em] text-bg">
                 <span aria-hidden className="mb-4 block text-5xl leading-none text-accent">“</span>
                 {t.quote}
               </blockquote>

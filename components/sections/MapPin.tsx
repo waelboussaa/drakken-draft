@@ -25,7 +25,7 @@ export function MapPin({ pin, delay }: { pin: Pin; delay: number }) {
         )}
         {office ? (
           <span className="relative grid size-5 place-items-center bg-teal">
-            <span className="size-1.5 bg-lime" />
+            <span className="size-1.5 bg-accent" />
           </span>
         ) : (
           <span className="relative grid size-5 place-items-center rounded-full bg-accent shadow-[0_0_0_4px_rgba(0,160,95,0.2)]">

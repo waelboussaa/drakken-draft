@@ -1,10 +1,11 @@
 import Link from "next/link";
 
-type Variant = "lime" | "dark" | "light" | "glass";
+type Variant = "green" | "lime" | "dark" | "light" | "glass";
 
 const styles: Record<Variant, string> = {
+  green: "bg-accent-strong text-white",
   lime: "bg-lime text-teal",
-  dark: "bg-teal text-lime",
+  dark: "bg-teal text-bg",
   light: "bg-bg text-teal",
   glass: "bg-white/25 text-white backdrop-blur-[5px]",
 };
@@ -21,7 +22,7 @@ export function Arrow({ className = "" }: { className?: string }) {
 export function ArrowButton({
   href,
   children,
-  variant = "lime",
+  variant = "green",
   className = "",
 }: {
   href: string;
