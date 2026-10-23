@@ -56,8 +56,14 @@ export const proof = {
     { value: 60, suffix: "+", label: "E-houses delivered", tbc: true },
     { value: 5, suffix: "M", label: "Safe man-hours", tbc: true },
   ],
-  // Client and partner names from the brief; swap for logo files when supplied.
-  clients: ["Pearl Petroleum", "NEOM", "DEWA", "GE Vernova"],
+  // Client and partner logos (official files from each company's site or
+  // Wikimedia Commons). `ratio` is width/height; `height` balances visual weight.
+  clients: [
+    { name: "Pearl Petroleum", logo: "/clients/pearl-petroleum.png", ratio: 150 / 91, height: 58 },
+    { name: "NEOM", logo: "/clients/neom.svg", ratio: 1000 / 150, height: 30 },
+    { name: "DEWA", logo: "/clients/dewa.webp", ratio: 422 / 100, height: 50 },
+    { name: "GE Vernova", logo: "/clients/ge-vernova.svg", ratio: 1274 / 281.3, height: 38 },
+  ],
 };
 
 export type ServiceIcon = "ehouse" | "scada" | "instrument" | "hazard";

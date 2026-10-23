@@ -25,8 +25,25 @@ export function Proof() {
         <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
           <ul className="flex w-max animate-[marquee_30s_linear_infinite] motion-reduce:animate-none">
             {strip.map((c, i) => (
-              <li key={i} aria-hidden={i >= proof.clients.length} className="whitespace-nowrap pr-16 text-2xl font-medium tracking-[-0.04em] text-bg/70">
-                {c}
+              <li key={i} aria-hidden={i >= proof.clients.length} className="flex shrink-0 items-center pr-20 text-bg/80">
+                {/* Logo drawn as a mask so every mark shares one flat colour. */}
+                <span
+                  role="img"
+                  aria-label={c.name}
+                  className="block bg-current"
+                  style={{
+                    height: c.height,
+                    width: c.height * c.ratio,
+                    maskImage: `url(${c.logo})`,
+                    WebkitMaskImage: `url(${c.logo})`,
+                    maskSize: "contain",
+                    WebkitMaskSize: "contain",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskRepeat: "no-repeat",
+                    maskPosition: "center",
+                    WebkitMaskPosition: "center",
+                  }}
+                />
               </li>
             ))}
           </ul>
