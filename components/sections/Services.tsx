@@ -8,6 +8,7 @@ import { icons } from "@/components/ui/Icons";
 import { Arrow } from "@/components/ui/ArrowButton";
 import { Label } from "@/components/ui/Label";
 import { Reveal } from "@/components/ui/Reveal";
+import { SectionHead } from "@/components/ui/SectionHead";
 
 const ease = [0.16, 1, 0.3, 1] as const;
 
@@ -71,10 +72,7 @@ function Card({ item }: { item: (typeof services.items)[number] }) {
 export function Services() {
   return (
     <section id="services" className="px-4 pb-4 pt-[120px]">
-      <Reveal className="mb-14 flex flex-col items-start gap-6">
-        <Label>{services.label}</Label>
-        <h2 className="text-h2 max-w-[820px]">{services.title}</h2>
-      </Reveal>
+      <SectionHead index="01" label={services.label} title={services.title} />
       <div className="grid gap-2 md:grid-cols-2">
         {services.items.map((item, i) => (
           <Reveal key={item.title} delay={(i % 2) * 0.1}>

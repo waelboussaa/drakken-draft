@@ -3,8 +3,7 @@
 import { motion, useScroll, useSpring, useReducedMotion } from "motion/react";
 import { useRef } from "react";
 import { process } from "@/content/site";
-import { Label } from "@/components/ui/Label";
-import { Reveal } from "@/components/ui/Reveal";
+import { SectionHead } from "@/components/ui/SectionHead";
 
 /** Five delivery phases as a line that fills as you scroll past it. */
 export function Process() {
@@ -15,10 +14,7 @@ export function Process() {
 
   return (
     <section className="bg-teal px-4 py-[120px] text-bg">
-      <Reveal className="mb-16 flex flex-col items-start gap-6">
-        <Label>{process.label}</Label>
-        <h2 className="text-h2 max-w-[760px]">{process.title}</h2>
-      </Reveal>
+      <SectionHead index="03" label={process.label} title={process.title} />
 
       <ol ref={ref} className="relative grid gap-10 md:grid-cols-5 md:gap-2">
         {/* Track: vertical on mobile, horizontal from md up. */}
@@ -39,8 +35,8 @@ export function Process() {
               <span className="size-2 rounded-full bg-accent" />
             </span>
             <div className="flex flex-col gap-3">
-              <span className="text-eyebrow text-bg/55">0{i + 1}</span>
-              <h3 className="text-[clamp(1.5rem,2.2vw,1.9rem)] font-medium tracking-[-0.04em] text-accent-light">{s.title}</h3>
+              <span className="text-[clamp(3rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.05em] text-accent-light md:mt-4">0{i + 1}</span>
+              <h3 className="text-[clamp(1.5rem,2.2vw,1.9rem)] font-medium tracking-[-0.04em]">{s.title}</h3>
               <p className="text-body max-w-[260px] text-bg/70">{s.text}</p>
             </div>
           </li>

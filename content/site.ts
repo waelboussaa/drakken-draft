@@ -31,13 +31,11 @@ export const nav = {
 };
 
 export const hero = {
-  // Shown as two lines on desktop; wraps naturally on small screens.
-  title: ["E&I and automation EPC for the world's", "toughest oil, gas and power projects"],
-  // Two lines on desktop. "E‑houses" uses a non-breaking hyphen so it never splits.
-  subtitle: [
-    "We engineer, fabricate, procure and commission power distribution, E‑houses,",
-    "control systems and instrumentation — from Dubai and Calgary to the field.",
-  ],
+  eyebrow: "E&I · Automation · EPC",
+  title: "E&I and automation EPC for the world's toughest oil, gas and power projects",
+  // "E‑houses" uses a non-breaking hyphen so it never splits.
+  subtitle:
+    "We engineer, fabricate, procure and commission power distribution, E‑houses, control systems and instrumentation — from Dubai and Calgary to the field.",
   ctas: [
     { label: "See Our Projects", href: "/projects", variant: "green" as const },
     { label: "Speak to an Engineer", href: "/#contact", variant: "glass" as const },
@@ -129,6 +127,7 @@ export const credentials = {
 
 export const testimonials = {
   label: "Testimonials",
+  title: "What clients say once the power is on",
   // TBC: sample quotes only. Replace with real, approved client quotes.
   items: [
     {
@@ -157,6 +156,7 @@ export const testimonials = {
 
 export const news = {
   label: "Latest News",
+  title: "From the field",
   // TBC: placeholder headlines until the news feed is connected.
   items: [
     { date: "2026-10-02", title: "Drakken completes FAT on E-house package for Nigerian FPSO", href: "#", tbc: true },

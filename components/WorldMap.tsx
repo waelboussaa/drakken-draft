@@ -31,7 +31,7 @@ export function MapLegend() {
   return (
     <div className="flex gap-6 text-eyebrow text-muted">
       <span className="flex items-center gap-2">
-        <span className="size-3 rounded-full bg-accent" /> Project
+        <span className="size-3 rounded-full bg-accent" /> Featured project
       </span>
       <span className="flex items-center gap-2">
         <span className="size-3 bg-teal" /> Office

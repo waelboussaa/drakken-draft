@@ -7,6 +7,7 @@ import { Cta } from "@/components/sections/Cta";
 import { GridLines } from "@/components/sections/Hero";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { Label } from "@/components/ui/Label";
+import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tbc } from "@/components/ui/Tbc";
 
@@ -79,11 +80,11 @@ export default async function CaseStudyPage({ params }: Props) {
       <section className="grid gap-16 px-4 py-[120px] lg:grid-cols-[1fr_1fr]">
         <div className="flex flex-col gap-14">
           <Reveal className="flex flex-col items-start gap-5">
-            <Label>The Challenge</Label>
+            <SectionLabel>The Challenge</SectionLabel>
             <p className="text-lead">{c.challenge}</p>
           </Reveal>
           <Reveal className="flex flex-col items-start gap-5">
-            <Label>What We Delivered</Label>
+            <SectionLabel>What We Delivered</SectionLabel>
             <p className="text-body-lg max-w-[560px] text-muted">{c.delivered}</p>
             <ul className="mt-2 flex flex-wrap gap-1.5">
               {c.equipment.map((e) => (

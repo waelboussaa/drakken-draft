@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { news } from "@/content/site";
 import { Arrow } from "@/components/ui/ArrowButton";
-import { Label } from "@/components/ui/Label";
+import { SectionHead } from "@/components/ui/SectionHead";
 import { Reveal } from "@/components/ui/Reveal";
 import { Tbc } from "@/components/ui/Tbc";
 
@@ -10,9 +10,7 @@ const fmt = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", y
 export function News() {
   return (
     <section id="news" className="px-4 py-[120px]">
-      <Reveal className="mb-10">
-        <Label>{news.label}</Label>
-      </Reveal>
+      <SectionHead index="07" label={news.label} title={news.title} />
       <ul className="border-t border-line">
         {news.items.map((n, i) => (
           <Reveal key={n.title} delay={i * 0.05}>
