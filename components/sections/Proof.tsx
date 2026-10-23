@@ -8,7 +8,7 @@ export function Proof() {
   const strip = [...proof.clients, ...proof.clients, ...proof.clients, ...proof.clients];
   return (
     <section id="proof" className="bg-teal text-bg">
-      <div className="grid grid-cols-2 gap-px bg-teal-2 md:grid-cols-5">
+      <div className="grid grid-cols-2 gap-px bg-teal-2 md:grid-cols-4">
         {proof.stats.map((s) => (
           <div key={s.label} className="flex flex-col gap-3 bg-teal px-4 py-10 md:px-6 md:py-14">
             <span className="text-[clamp(2.75rem,5vw,4rem)] font-medium text-accent-light leading-none tracking-[-0.04em]">

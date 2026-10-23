@@ -51,7 +51,6 @@ export const proof = {
   label: "Proof",
   stats: [
     { value: 18, suffix: "", label: "Countries", tbc: false },
-    { value: 4, suffix: "", label: "Continents", tbc: false },
     { value: 120, suffix: "+", label: "Projects delivered", tbc: true },
     { value: 60, suffix: "+", label: "E-houses delivered", tbc: true },
     { value: 5, suffix: "M", label: "Safe man-hours", tbc: true },
