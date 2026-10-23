@@ -20,6 +20,10 @@
   --color-accent: #00a05f;
   --color-accent-strong: #027747;
   --color-accent-light: #1fbf7a;
+  /* The wordmark's own green: the background for every dark-section panel.
+     brand-deep draws dividers inside those panels. */
+  --color-brand: #159956;
+  --color-brand-deep: #11804a;
   --color-logo: #159956;
   --color-lime: #d8e0a7;
   --color-lime-2: #c8d28f;

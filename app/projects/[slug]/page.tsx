@@ -24,9 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 function Fact({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-2 bg-teal px-4 py-5 md:px-6">
-      <dt className="text-eyebrow text-bg/55">{label}</dt>
-      <dd className="text-body-lg text-bg">{children}</dd>
+    <div className="flex flex-col gap-2 bg-brand px-4 py-5 md:px-6">
+      <dt className="text-eyebrow text-white/80">{label}</dt>
+      <dd className="text-body-lg text-white">{children}</dd>
     </div>
   );
 }
@@ -49,7 +49,8 @@ export default async function CaseStudyPage({ params }: Props) {
       {/* Hero */}
       <header className="relative isolate flex min-h-[80svh] flex-col justify-end overflow-hidden px-4 pb-10 pt-40 text-white">
         <Image src={c.image.src} alt={c.image.alt} fill priority sizes="100vw" className="-z-10 object-cover grayscale-[0.6]" />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-teal via-teal/60 to-teal/40" />
+        <div className="absolute inset-0 -z-10 bg-brand mix-blend-multiply" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black/45 via-black/15 to-black/10" />
         <GridLines />
         <div className="relative flex max-w-[900px] flex-col items-start gap-5">
           <span className="flex flex-wrap items-center gap-2">
@@ -66,7 +67,7 @@ export default async function CaseStudyPage({ params }: Props) {
       </header>
 
       {/* Fixed facts, so projects can be scanned and compared */}
-      <dl className="grid gap-px bg-teal-2 sm:grid-cols-2 lg:grid-cols-4">
+      <dl className="grid gap-px bg-brand-deep sm:grid-cols-2 lg:grid-cols-4">
         <Fact label="Client / end user">{c.client}</Fact>
         <Fact label="Country · site type">
           {c.country} · {c.facility}

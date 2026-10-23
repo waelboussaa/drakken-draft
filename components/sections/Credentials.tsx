@@ -15,7 +15,7 @@ export function Credentials() {
           <Reveal key={c.title} delay={i * 0.05} className="h-full">
             <div className="flex h-full min-h-[200px] flex-col justify-between gap-6 bg-surface p-5 transition-colors duration-300 hover:bg-lime">
               <span className="flex items-center justify-between">
-                <span className="bg-teal px-1.5 py-1 text-eyebrow text-bg">{c.kind}</span>
+                <span className="bg-accent-strong px-1.5 py-1 text-eyebrow text-white">{c.kind}</span>
                 <Tbc show={c.tbc} />
               </span>
               <div className="flex flex-col gap-1">
