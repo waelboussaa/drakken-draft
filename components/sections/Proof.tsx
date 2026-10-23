@@ -8,7 +8,7 @@ export function Proof() {
   const strip = [...proof.clients, ...proof.clients, ...proof.clients, ...proof.clients];
   return (
     <section id="proof" className="bg-teal text-bg">
-      <div className="grid grid-cols-2 gap-px bg-teal-2 md:grid-cols-4">
+      <div className="grid grid-cols-2 md:grid-cols-4">
         {proof.stats.map((s) => (
           <div key={s.label} className="flex flex-col gap-3 bg-teal px-4 py-10 md:px-6 md:py-14">
             <span className="text-[clamp(2.75rem,5vw,4rem)] font-medium text-accent-light leading-none tracking-[-0.04em]">
@@ -20,7 +20,7 @@ export function Proof() {
           </div>
         ))}
       </div>
-      <div className="flex items-center gap-8 overflow-hidden border-t border-teal-2 py-6">
+      <div className="flex items-center gap-8 overflow-hidden py-6">
         <span className="shrink-0 pl-4 text-eyebrow text-bg/55">Trusted by</span>
         <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
           <ul className="flex w-max animate-[marquee_30s_linear_infinite] motion-reduce:animate-none">
