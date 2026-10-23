@@ -34,12 +34,12 @@ export function Nav() {
   return (
     <header className="pointer-events-none fixed inset-x-4 top-4 z-50 flex items-start justify-between">
       <nav
-        className={`pointer-events-auto border border-white/15 text-white shadow-[0_8px_32px_rgba(16,34,29,0.18)] backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 ${
+        className={`pointer-events-auto w-full border border-white/15 md:w-auto text-white shadow-[0_8px_32px_rgba(16,34,29,0.18)] backdrop-blur-xl backdrop-saturate-150 transition-colors duration-300 ${
           tinted ? "bg-teal/80" : "bg-white/10"
         }`}
         onMouseLeave={() => setOpen(null)}
       >
-        <div className="flex h-[60px] items-center gap-8 px-4">
+        <div className="flex h-[60px] items-center justify-between gap-8 px-4 md:justify-start">
           <Logo className="h-5 text-white" />
           <ul className="hidden items-center gap-8 md:flex">
             {nav.links.map((l) =>
