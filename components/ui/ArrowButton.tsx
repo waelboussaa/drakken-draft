@@ -5,7 +5,7 @@ type Variant = "green" | "lime" | "dark" | "light" | "glass";
 const styles: Record<Variant, string> = {
   green: "bg-accent-strong text-white",
   lime: "bg-lime text-teal",
-  dark: "bg-accent-strong text-white",
+  dark: "bg-teal text-bg",
   light: "bg-bg text-teal",
   glass: "bg-white/25 text-white backdrop-blur-[5px]",
 };

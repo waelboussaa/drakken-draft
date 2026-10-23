@@ -32,7 +32,7 @@ export function Hero() {
 
   return (
     <section ref={ref} className="relative flex h-svh min-h-[680px] flex-col overflow-hidden px-4 pb-4 pt-8 text-white md:px-8">
-      <motion.div className="absolute inset-0 -z-10 bg-brand" style={{ y }}>
+      <motion.div className="absolute inset-0 -z-10 bg-teal" style={{ y }}>
         <motion.div
           className="absolute inset-0"
           initial={reduce ? false : { scale: 1.15 }}
@@ -54,11 +54,9 @@ export function Hero() {
             <Image src={hero.image.src} alt={hero.image.alt} fill priority sizes="100vw" className="object-cover grayscale-[0.75]" />
           )}
         </motion.div>
-        {/* Logo-green tint: multiply keeps the photo's detail as green tones. */}
-        <div className="absolute inset-0 bg-brand mix-blend-multiply" />
+        <div className="absolute inset-0 bg-gradient-to-b from-teal/85 via-teal/65 to-teal/90" />
         {/* Extra darkening behind the headline so it stays legible over bright plant lights. */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/25 via-black/10 to-black/35" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(0,0,0,0.35),transparent)]" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(16,34,29,0.55),transparent)]" />
       </motion.div>
       <GridLines />
 

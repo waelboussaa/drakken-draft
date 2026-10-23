@@ -31,7 +31,7 @@ function FooterLink({ href, children }: { href: string; children: string }) {
   return (
     <Link href={href} className="group relative inline-block w-fit text-[18px] tracking-[-0.03em]">
       {children}
-      <span className="absolute inset-x-0 -bottom-0.5 h-px origin-right scale-x-0 bg-white transition-transform duration-300 ease-out-expo group-hover:origin-left group-hover:scale-x-100" />
+      <span className="absolute inset-x-0 -bottom-0.5 h-px origin-right scale-x-0 bg-accent transition-transform duration-300 ease-out-expo group-hover:origin-left group-hover:scale-x-100" />
     </Link>
   );
 }
@@ -53,7 +53,7 @@ function Column({ title, items }: { title: string; items: { label: string; href:
 
 export function Footer() {
   return (
-    <footer className="bg-brand px-4 pt-14 text-white">
+    <footer className="bg-teal px-4 pt-14 text-bg">
       <div className="flex flex-col justify-between gap-12 md:flex-row">
         <div className="flex max-w-[280px] flex-col gap-4">
           <p className="text-[18px] leading-[1.35] tracking-[-0.03em]">{footer.blurb}</p>
@@ -67,7 +67,7 @@ export function Footer() {
       </div>
 
       <div className="mt-20 flex flex-col justify-between gap-6 pb-4 md:flex-row md:items-end">
-        <Logo className="h-[clamp(2.5rem,9vw,8rem)] text-white" />
+        <Logo className="h-[clamp(2.5rem,9vw,8rem)] text-accent" />
         <div className="flex flex-wrap gap-x-8 gap-y-2 text-eyebrow">
           <Clocks />
           <span>

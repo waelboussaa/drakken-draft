@@ -1,7 +1,7 @@
 const tones = {
   green: "bg-accent-strong text-white",
   lime: "bg-lime text-teal",
-  dark: "bg-accent-strong text-white",
+  dark: "bg-teal text-bg",
 };
 
 export function Label({
