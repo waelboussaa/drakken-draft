@@ -38,8 +38,9 @@ function FooterLink({ href, children }: { href: string; children: string }) {
 
 function Column({ title, items }: { title: string; items: { label: string; href: string }[] }) {
   return (
-    <div className="flex gap-10">
-      <span className="text-eyebrow pt-1">↳ {title}</span>
+    // Fixed title width keeps each column's links on one vertical line when the columns stack.
+    <div className="flex items-baseline gap-6">
+      <span className="w-24 shrink-0 text-eyebrow">↳ {title}</span>
       <ul className="flex flex-col gap-1">
         {items.map((i) => (
           <li key={i.label}>
