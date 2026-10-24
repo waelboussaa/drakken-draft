@@ -15,12 +15,20 @@ export function MapPin({ pin, delay }: { pin: Pin; delay: number }) {
         {pin.sub && <span className="text-[10px] text-muted">{pin.sub}</span>}
       </span>
       <span className="relative block -translate-x-1/2 -translate-y-1/2">
+        {/* Each pin pops in when the map arrives, staggered by its index, then the pulse starts. */}
+        <motion.span
+          className="relative block"
+          initial={reduce ? false : { scale: 0, opacity: 0 }}
+          whileInView={{ scale: 1, opacity: 1 }}
+          viewport={{ once: true, margin: "0px 0px -20% 0px" }}
+          transition={{ type: "spring", stiffness: 260, damping: 16, delay: 0.4 + delay }}
+        >
         {!reduce && !office && (
           <motion.span
             aria-hidden
             className="absolute inset-0 rounded-full bg-accent"
             animate={{ scale: [1, 2.4], opacity: [0.6, 0] }}
-            transition={{ duration: 2, repeat: Infinity, delay, ease: "easeOut" }}
+            transition={{ duration: 2.4, repeat: Infinity, delay: 1 + delay, ease: "easeOut" }}
           />
         )}
         {office ? (
@@ -32,6 +40,7 @@ export function MapPin({ pin, delay }: { pin: Pin; delay: number }) {
             <span className="size-1.5 rounded-full bg-white" />
           </span>
         )}
+        </motion.span>
       </span>
     </>
   );

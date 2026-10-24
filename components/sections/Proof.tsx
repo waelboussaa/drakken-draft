@@ -1,5 +1,6 @@
 import { proof } from "@/content/site";
 import { Counter } from "@/components/ui/Counter";
+import { Reveal } from "@/components/ui/Reveal";
 import { Tbc } from "@/components/ui/Tbc";
 
 /** Key numbers and a scrolling client strip, straight after the hero. */
@@ -9,15 +10,15 @@ export function Proof() {
   return (
     <section id="proof" className="bg-teal text-bg">
       <div className="grid grid-cols-2 md:grid-cols-4">
-        {proof.stats.map((s) => (
-          <div key={s.label} className="flex flex-col gap-3 bg-teal px-4 py-10 md:px-6 md:py-14">
+        {proof.stats.map((s, i) => (
+          <Reveal key={s.label} delay={i * 0.1} className="flex flex-col gap-3 bg-teal px-4 py-10 md:px-6 md:py-14">
             <span className="text-[clamp(2.75rem,5vw,4rem)] font-medium text-accent-light leading-none tracking-[-0.04em]">
               <Counter value={s.value} suffix={s.suffix} />
             </span>
             <span className="flex items-center gap-2 text-body text-bg/75">
               {s.label} <Tbc show={s.tbc} />
             </span>
-          </div>
+          </Reveal>
         ))}
       </div>
       <div className="flex items-center gap-8 overflow-hidden py-6">
