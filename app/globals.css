@@ -3,10 +3,12 @@
 @theme {
   /* Drakken brand (designer brief, section 6). "teal" names kept from the
      reference build; they now carry Drakken's dark greens. */
-  --color-bg: #f3f1eb;
-  --color-surface: #e8e5dc;
-  --color-surface-2: #e2dfd5;
-  --color-line: #cfcabc;
+  /* White page background. Surfaces and rules are neutral light greys so cards, list rows
+     and dividers still read on white. (bg also colours the light text on green sections.) */
+  --color-bg: #ffffff;
+  --color-surface: #f3f4f2;
+  --color-surface-2: #ebedea;
+  --color-line: #d9dcd8;
   /* Text uses Drakken's secondary green, as headings do on drakken.co. */
   --color-ink: #1d3d34;
   --color-muted: #666666;
