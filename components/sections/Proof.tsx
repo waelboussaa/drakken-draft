@@ -1,7 +1,7 @@
 import { proof } from "@/content/site";
 import { Counter } from "@/components/ui/Counter";
 import { Reveal } from "@/components/ui/Reveal";
-import { Tbc } from "@/components/ui/Tbc";
+import { ClientLogo } from "@/components/ui/ClientLogo";
 
 /** Key numbers and a scrolling client strip, straight after the hero. */
 export function Proof() {
@@ -15,36 +15,17 @@ export function Proof() {
             <span className="text-[clamp(2.75rem,5vw,4rem)] font-medium text-accent-light leading-none tracking-[-0.04em]">
               <Counter value={s.value} suffix={s.suffix} />
             </span>
-            <span className="flex items-center gap-2 text-body text-bg/75">
-              {s.label} <Tbc show={s.tbc} />
-            </span>
+            <span className="text-body text-bg/75">{s.label}</span>
           </Reveal>
         ))}
       </div>
       <div className="flex items-center gap-8 overflow-hidden py-6">
-        <span className="shrink-0 pl-4 text-eyebrow text-bg/55">Trusted by</span>
+        <span className="shrink-0 pl-4 text-eyebrow text-bg/55">{proof.strip}</span>
         <div className="relative flex-1 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
           <ul className="flex w-max animate-[marquee_30s_linear_infinite] motion-reduce:animate-none">
             {strip.map((c, i) => (
               <li key={i} aria-hidden={i >= proof.clients.length} className="flex shrink-0 items-center pr-20 text-bg/80">
-                {/* Logo drawn as a mask so every mark shares one flat colour. */}
-                <span
-                  role="img"
-                  aria-label={c.name}
-                  className="block bg-current"
-                  style={{
-                    height: c.height,
-                    width: c.height * c.ratio,
-                    maskImage: `url(${c.logo})`,
-                    WebkitMaskImage: `url(${c.logo})`,
-                    maskSize: "contain",
-                    WebkitMaskSize: "contain",
-                    maskRepeat: "no-repeat",
-                    WebkitMaskRepeat: "no-repeat",
-                    maskPosition: "center",
-                    WebkitMaskPosition: "center",
-                  }}
-                />
+                <ClientLogo name={c.name} src={c.logo} ratio={c.ratio} height={c.height} />
               </li>
             ))}
           </ul>

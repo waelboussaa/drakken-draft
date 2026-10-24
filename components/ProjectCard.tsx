@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import type { CaseStudy } from "@/content/site";
 import { Arrow } from "@/components/ui/ArrowButton";
-import { Tbc } from "@/components/ui/Tbc";
 
 /** Case-study card: image, name, country, service line, one-line result. */
 export function ProjectCard({ project, sizes = "(min-width: 768px) 33vw, 100vw" }: { project: CaseStudy; sizes?: string }) {
@@ -29,9 +28,7 @@ export function ProjectCard({ project, sizes = "(min-width: 768px) 33vw, 100vw" 
       <div className="flex flex-col gap-1.5">
         <span className="text-eyebrow text-muted">{project.services.join(" · ")}</span>
         <h3 className="text-[22px] font-medium leading-tight tracking-[-0.04em]">{project.title}</h3>
-        <p className="text-body text-muted">
-          {project.summary} <Tbc show={project.tbc} />
-        </p>
+        <p className="text-body text-muted">{project.summary}</p>
       </div>
     </Link>
   );

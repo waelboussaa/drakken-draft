@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { brand, footer, offices } from "@/content/site";
+import { brand, contactDetails, footer, offices } from "@/content/site";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { Logo } from "@/components/ui/Logo";
 
@@ -15,7 +15,7 @@ function Clocks() {
   }, []);
   return (
     <>
-      {offices.map((o) => (
+      {offices.filter((o) => o.clock).map((o) => (
         <span key={o.city} className="tabular-nums">
           {o.city}:{" "}
           {now
@@ -58,11 +58,19 @@ export function Footer() {
       <div className="flex flex-col justify-between gap-12 md:flex-row">
         <div className="flex max-w-[280px] flex-col gap-4">
           <p className="text-[18px] leading-[1.35] tracking-[-0.03em]">{footer.blurb}</p>
+          <p className="flex flex-col gap-1 text-[18px] tracking-[-0.03em]">
+            <a href={`mailto:${contactDetails.email}`} className="w-fit underline decoration-bg/30 underline-offset-4 hover:decoration-accent">
+              {contactDetails.email}
+            </a>
+            <a href={contactDetails.phoneHref} className="w-fit tabular-nums underline decoration-bg/30 underline-offset-4 hover:decoration-accent">
+              {contactDetails.phone}
+            </a>
+          </p>
           <ArrowButton href={footer.cta.href}>{footer.cta.label}</ArrowButton>
         </div>
         <div className="flex flex-wrap gap-16">
           <Column title="Pages" items={footer.pages} />
-          <Column title="Offices" items={offices.map((o) => ({ label: `${o.city} · ${o.role}`, href: "/#contact" }))} />
+          <Column title="Offices" items={offices.map((o) => ({ label: `${o.city} · ${o.role}`, href: "https://drakken.co/contact-us/" }))} />
           <Column title="Social" items={footer.social} />
         </div>
       </div>

@@ -9,7 +9,6 @@ import { ArrowButton } from "@/components/ui/ArrowButton";
 import { Label } from "@/components/ui/Label";
 import { SectionLabel } from "@/components/ui/SectionLabel";
 import { Reveal } from "@/components/ui/Reveal";
-import { Tbc } from "@/components/ui/Tbc";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -49,7 +48,7 @@ export default async function CaseStudyPage({ params }: Props) {
     <article>
       {/* Hero */}
       <header className="relative isolate flex min-h-[80svh] flex-col justify-end overflow-hidden px-4 pb-10 pt-40 text-white">
-        <Image src={c.image.src} alt={c.image.alt} fill priority sizes="100vw" className="-z-10 object-cover grayscale-[0.6]" />
+        <Image src={(c.hero ?? c.image).src} alt={(c.hero ?? c.image).alt} fill priority sizes="100vw" className="-z-10 object-cover grayscale-[0.6]" />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-teal via-teal/60 to-teal/40" />
         <GridLines />
         <div className="relative flex max-w-[900px] flex-col items-start gap-5">
@@ -60,9 +59,7 @@ export default async function CaseStudyPage({ params }: Props) {
             </Label>
           </span>
           <h1 className="text-hero">{c.title}</h1>
-          <p className="text-body-lg max-w-[600px] text-white/85">
-            {c.summary} <Tbc show={c.tbc} />
-          </p>
+          <p className="text-body-lg max-w-[600px] text-white/85">{c.summary}</p>
         </div>
       </header>
 
@@ -97,11 +94,10 @@ export default async function CaseStudyPage({ params }: Props) {
         </div>
         <Reveal className="lg:pl-8">
           <div className="flex h-full min-h-[320px] flex-col justify-between gap-10 bg-lime p-8 text-teal lg:sticky lg:top-28 lg:h-auto lg:min-h-[420px]">
-            <span className="flex items-center justify-between">
+            <span>
               <Label tone="dark" mono>
                 Result
               </Label>
-              <Tbc show={c.tbc} />
             </span>
             <div className="flex flex-col gap-3">
               <span className="text-[clamp(3.5rem,8vw,6.5rem)] font-medium leading-none tracking-[-0.05em]">{c.result.value}</span>
@@ -155,7 +151,7 @@ export default async function CaseStudyPage({ params }: Props) {
         title="Discuss a similar project with our engineers"
         ctas={[
           { label: "Discuss a Similar Project", href: `mailto:info@drakken.co?subject=${encodeURIComponent(`Similar project: ${c.title}`)}` },
-          { label: "Get the Capability Statement", href: "#" },
+          { label: "Request a Capability Review", href: "mailto:info@drakken.co?subject=Capability%20review" },
         ]}
       />
     </article>

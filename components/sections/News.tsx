@@ -3,7 +3,6 @@ import { news } from "@/content/site";
 import { Arrow } from "@/components/ui/ArrowButton";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { Reveal } from "@/components/ui/Reveal";
-import { Tbc } from "@/components/ui/Tbc";
 
 const fmt = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", year: "numeric", timeZone: "UTC" });
 
@@ -22,8 +21,8 @@ export function News() {
                 <time dateTime={n.date} className="text-eyebrow text-muted">
                   {fmt.format(new Date(n.date))}
                 </time>
-                <span className="col-span-2 row-start-2 flex items-center gap-2 text-[clamp(1.25rem,2vw,1.6rem)] tracking-[-0.04em] md:col-span-1 md:row-start-auto">
-                  {n.title} <Tbc show={n.tbc} />
+                <span className="col-span-2 row-start-2 text-[clamp(1.25rem,2vw,1.6rem)] tracking-[-0.04em] md:col-span-1 md:row-start-auto">
+                  {n.title}
                 </span>
                 <span className="col-start-2 row-start-1 grid size-[38px] place-items-center rounded-full bg-surface transition-colors group-hover:bg-lime md:col-start-auto md:row-start-auto">
                   <Arrow />

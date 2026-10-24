@@ -3,11 +3,24 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 
-export type Pin = { label: string; sub?: string; left: number; top: number; href?: string; kind: "project" | "office" };
+export type Pin = { label: string; sub?: string; left: number; top: number; href?: string; kind: "project" | "office" | "region" };
 
 export function MapPin({ pin, delay }: { pin: Pin; delay: number }) {
   const reduce = useReducedMotion();
   const office = pin.kind === "office";
+
+  // Other places Drakken has worked: a quiet dot with a name on hover (the full list is
+  // also written out as text beside the map, so these are decorative for screen readers).
+  if (pin.kind === "region") {
+    return (
+      <span aria-hidden className="group absolute" style={{ left: `${pin.left}%`, top: `${pin.top}%` }}>
+        <span className="pointer-events-none absolute bottom-3 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[rgba(232,229,220,0.9)] px-2 py-1 text-eyebrow text-teal opacity-0 backdrop-blur-[3px] transition-opacity duration-200 group-hover:opacity-100">
+          {pin.label}
+        </span>
+        <span className="block size-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/70 ring-4 ring-accent/15" />
+      </span>
+    );
+  }
   const body = (
     <>
       <span className="pointer-events-none absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center whitespace-nowrap bg-[rgba(232,229,220,0.85)] px-2.5 py-1.5 text-eyebrow text-teal opacity-0 backdrop-blur-[3px] transition-all duration-300 group-hover:-translate-y-1 group-hover:opacity-100 group-focus-visible:opacity-100">

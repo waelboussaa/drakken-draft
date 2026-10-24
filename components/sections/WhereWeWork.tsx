@@ -1,7 +1,8 @@
+import { caseStudies, workedInList } from "@/content/site";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead } from "@/components/ui/SectionHead";
-import { MapLegend, WorldMap } from "@/components/WorldMap";
+import { buildPins, MapLegend, WorldMap } from "@/components/WorldMap";
 
 export function WhereWeWork() {
   return (
@@ -21,9 +22,13 @@ export function WhereWeWork() {
       />
 
       <Reveal className="mx-auto max-w-[1040px]">
-        <WorldMap />
-        <div className="mt-6">
-          <MapLegend />
+        <WorldMap pins={buildPins(caseStudies, true, true)} />
+        <div className="mt-6 flex flex-col gap-4">
+          <MapLegend regions />
+          <p className="max-w-[760px] text-body text-muted">
+            <span className="text-eyebrow text-teal">Worked in: </span>
+            {workedInList.join(", ")}.
+          </p>
         </div>
       </Reveal>
     </section>

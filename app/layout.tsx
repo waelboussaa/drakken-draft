@@ -9,6 +9,8 @@ const geist = Geist({ subsets: ["latin"], variable: "--font-geist", weight: ["40
 const ptMono = PT_Mono({ subsets: ["latin"], variable: "--font-pt-mono", weight: "400" });
 
 export const metadata: Metadata = {
+  // A design draft for client review: keep it out of search results.
+  robots: { index: false, follow: false },
   title: { default: "Drakken — E&I and Automation EPC", template: "%s — Drakken" },
   description:
     "Owner-led E&I and automation EPC integrator: power distribution, E-houses, SCADA, control systems and instrumentation for oil, gas and power projects.",
