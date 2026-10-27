@@ -8,8 +8,8 @@ import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead } from "@/components/ui/SectionHead";
 import { useMediaQuery } from "@/lib/useMediaQuery";
 
-// "What we deliver", after the drakken-website Solutions section: on desktop the card row
-// pins in the middle of the screen and scrolling down drives it sideways; below 1000px
+// "What we deliver", after the drakken-website Solutions section: on desktop the heading
+// and card row pin under the nav and scrolling down drives the row sideways; below 1000px
 // (or with reduced motion) it is a plain swipeable row.
 
 const spring = "cubic-bezier(.34,1.25,.64,1)";
@@ -126,15 +126,27 @@ export function Services() {
     if (!pinned) {
       w.style.height = "";
       s.style.top = "";
+      t.style.removeProperty("--card-w");
       x.set(0);
       return;
     }
+    const GAP = 20;
+    const RATIO = 669 / 502;
     const measure = () => {
-      const cardH = (t.firstElementChild as HTMLElement | null)?.offsetHeight ?? 0;
-      const distance = Math.max(0, t.scrollWidth - t.clientWidth);
-      // Pin the row in the middle of the screen, never under the nav.
-      const top = Math.max(96, (window.innerHeight - cardH) / 2);
-      w.style.height = `${cardH + distance}px`;
+      // Heading and cards pin together just under the nav, as on drakken-website.
+      const top = 96;
+      const headBlock = t.getBoundingClientRect().top - s.getBoundingClientRect().top;
+      // Two cards side by side, unless the screen is too short for the whole block:
+      // then the cards shrink so heading + cards still fit above the fold.
+      const naturalW = (t.clientWidth - GAP) / 2;
+      const roomH = window.innerHeight - top - headBlock - 24;
+      const cardW = Math.max(240, Math.min(naturalW, roomH * RATIO));
+      if (cardW < naturalW) t.style.setProperty("--card-w", `${cardW}px`);
+      else t.style.removeProperty("--card-w");
+      const cardH = cardW / RATIO;
+      const count = t.children.length;
+      const distance = Math.max(0, count * cardW + (count - 1) * GAP - t.clientWidth);
+      w.style.height = `${headBlock + cardH + distance}px`;
       s.style.top = `${top}px`;
       const start = w.getBoundingClientRect().top + window.scrollY - top;
       m.current = { distance, top, start };
@@ -155,9 +167,9 @@ export function Services() {
 
   return (
     <section id="services" className="overflow-x-clip px-4 pb-4 pt-[120px]">
-      <SectionHead index="01" label={services.label} title={services.title} />
       <div ref={wrap} className="relative">
         <div ref={sticky} className={pinned ? "sticky" : ""}>
+          <SectionHead index="01" label={services.label} title={services.title} compact />
           <div
             className={
               pinned
@@ -171,7 +183,7 @@ export function Services() {
                   key={item.title}
                   y={32}
                   delay={0.2 + i * 0.08}
-                  className="shrink-0 basis-[calc(50%-10px)] snap-start max-[999px]:basis-[80%] max-[809px]:basis-[88%]"
+                  className="shrink-0 basis-[var(--card-w,calc(50%_-_10px))] snap-start max-[999px]:basis-[80%] max-[809px]:basis-[88%]"
                 >
                   <Card item={item} />
                 </Reveal>
