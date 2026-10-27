@@ -1,84 +1,184 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { motion } from "motion/react";
+import { useEffect, useRef } from "react";
+import { motion, useMotionValue, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "motion/react";
 import { services } from "@/content/site";
-import { icons } from "@/components/ui/Icons";
-import { Arrow } from "@/components/ui/ArrowButton";
-import { Label } from "@/components/ui/Label";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHead } from "@/components/ui/SectionHead";
+import { useMediaQuery } from "@/lib/useMediaQuery";
 
-const ease = [0.22, 1, 0.36, 1] as const;
+// "What we deliver", after the drakken-website Solutions section: on desktop the card row
+// pins in the middle of the screen and scrolling down drives it sideways; below 1000px
+// (or with reduced motion) it is a plain swipeable row.
+
+const spring = "cubic-bezier(.34,1.25,.64,1)";
+
+/** "↳" corner arrow. */
+function CornerArrow() {
+  return (
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="square" aria-hidden>
+      <path d="M4 3v7h8" />
+      <path d="m9.5 7.5 2.5 2.5-2.5 2.5" />
+    </svg>
+  );
+}
+
+/** Corner brackets parked outside the card; they snap onto its corners on hover. */
+function CardCorners() {
+  const c = "absolute size-2 border-white";
+  return (
+    <span
+      aria-hidden
+      className="pointer-events-none absolute -inset-8 z-[1] transition-[inset] duration-[400ms] group-hover:inset-0"
+      style={{ transitionTimingFunction: spring }}
+    >
+      <i className={`${c} left-4 top-4 border-l border-t`} />
+      <i className={`${c} right-4 top-4 border-r border-t`} />
+      <i className={`${c} bottom-4 left-4 border-b border-l`} />
+      <i className={`${c} bottom-4 right-4 border-b border-r`} />
+    </span>
+  );
+}
+
+/** Photo 25% taller than its frame, drifting with page scroll; zooms slightly on card hover. */
+function ParallaxImage({ src, alt }: { src: string; alt: string }) {
+  const frame = useRef<HTMLDivElement>(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: frame, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], reduce ? ["0%", "0%"] : ["-10%", "10%"]);
+  return (
+    <div ref={frame} className="absolute inset-0 overflow-hidden">
+      <motion.div className="absolute inset-x-0 -top-[12.5%] h-[125%]" style={{ y }}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          sizes="(min-width: 1000px) 50vw, 88vw"
+          className="object-cover transition-[scale] duration-[1200ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.04]"
+        />
+      </motion.div>
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,30,0.15),rgba(16,35,30,0.45))]" />
+    </div>
+  );
+}
 
 function Card({ item }: { item: (typeof services.items)[number] }) {
-  const Icon = icons[item.icon];
   return (
-    <motion.div initial="rest" whileHover="hover" whileFocus="hover" className="h-full">
-      <Link
-        href={item.href}
-        data-cursor="plus"
-        className="group relative flex aspect-[4/5] h-full flex-col justify-end overflow-hidden bg-teal p-6 text-white md:aspect-auto md:min-h-[560px] md:p-8"
-      >
-        <Image src={item.image.src} alt={item.image.alt} fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-t from-teal via-teal/40 to-teal/10" />
-        <span className="absolute right-4 top-4 grid size-7 place-items-center rounded-full bg-white/25 backdrop-blur-[5px]">
-          <motion.svg variants={{ rest: { rotate: 0 }, hover: { rotate: 45 } }} viewBox="0 0 12 12" className="size-3" aria-hidden>
-            <path d="M6 1v10M1 6h10" stroke="currentColor" strokeWidth="1.2" />
-          </motion.svg>
-        </span>
-        <div className="relative flex flex-col gap-4">
-          <div className="size-12 text-accent">
-            <Icon />
-          </div>
-          <h3 className="text-[clamp(1.5rem,2.4vw,2rem)] font-medium leading-tight tracking-[-0.04em]">{item.title}</h3>
-          <ul className="flex flex-wrap gap-1.5">
-            {item.solutions.map((s) => (
-              <li key={s} className="bg-white/15 px-2 py-1 text-eyebrow backdrop-blur-[3px]">
-                {s}
-              </li>
-            ))}
-          </ul>
+    <a
+      href={item.href}
+      data-cursor="plus"
+      className="group relative flex aspect-[669/502] flex-col justify-between overflow-hidden p-8 text-white max-[999px]:aspect-[4/4.4] max-[809px]:aspect-[3/4] max-[809px]:p-4"
+    >
+      <ParallaxImage src={item.image.src} alt={item.image.alt} />
+      <CardCorners />
+      <div className="relative z-[1] flex w-[min(436px,100%)] flex-col gap-6 bg-[rgba(16,35,30,0.45)] px-8 py-6 backdrop-blur-[50px] max-[809px]:p-5">
+        <div className="flex flex-col items-start gap-2">
+          {/* Non-breaking hyphen so "E-Houses" never splits across lines. */}
+          <h3 className="text-[20px] font-medium leading-[1.2] tracking-[-0.02em]">{item.title.replace("E-", "E‑")}</h3>
+          <p className="text-eyebrow text-white/70">{item.subtitle}</p>
         </div>
-
-        <motion.div
-          variants={{ rest: { clipPath: "inset(100% 0 0 0)" }, hover: { clipPath: "inset(0% 0 0 0)" } }}
-          transition={{ duration: 0.7, ease }}
-          className="absolute inset-0 flex flex-col justify-between bg-lime p-6 text-teal md:p-8"
+        <p className="text-body text-white/70">{item.body}</p>
+      </div>
+      <div className="relative z-[1] flex justify-end">
+        {/* Grows from an arrow into "Explore service" on hover. */}
+        <span
+          className="flex h-10 w-14 items-center gap-2 overflow-hidden rounded-full bg-white/[0.07] px-5 py-3 backdrop-blur-[10px] transition-[width,background-color] duration-[400ms] group-hover:w-[180px] group-hover:bg-accent"
+          style={{ transitionTimingFunction: spring }}
         >
-          <Label tone="dark" mono>
-            Solutions
-          </Label>
-          <ul className="flex flex-col gap-1">
-            {item.solutions.map((s) => (
-              <li key={s} className="border-b border-teal/15 py-2 text-[clamp(1.25rem,2vw,1.6rem)] tracking-[-0.04em]">
-                {s}
-              </li>
-            ))}
-          </ul>
-          <span className="flex items-center justify-between">
-            <span className="text-[clamp(1.25rem,2vw,1.6rem)] font-medium tracking-[-0.04em]">{item.title}</span>
-            <span className="grid size-[38px] place-items-center rounded-full bg-teal text-bg">
-              <Arrow />
-            </span>
+          <span className="size-4 shrink-0">
+            <CornerArrow />
           </span>
-        </motion.div>
-      </Link>
-    </motion.div>
+          <span className="whitespace-nowrap text-eyebrow opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+            Explore service
+          </span>
+        </span>
+      </div>
+    </a>
   );
 }
 
 export function Services() {
+  const desktop = useMediaQuery("(min-width: 1000px)");
+  const reduce = useReducedMotion();
+  const pinned = desktop && !reduce;
+
+  const wrap = useRef<HTMLDivElement>(null);
+  const sticky = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
+  // Measured on resize: how far the row travels, where it pins, and the page offset where pinning starts.
+  const m = useRef({ distance: 0, top: 96, start: 0 });
+  const x = useMotionValue(0);
+  const { scrollY } = useScroll();
+
+  const place = (y: number) => {
+    const { distance, start } = m.current;
+    const p = distance > 0 ? Math.min(1, Math.max(0, (y - start) / distance)) : 0;
+    x.set(-p * distance);
+  };
+  useMotionValueEvent(scrollY, "change", (y) => pinned && place(y));
+
+  useEffect(() => {
+    const w = wrap.current;
+    const s = sticky.current;
+    const t = track.current;
+    if (!w || !s || !t) return;
+    if (!pinned) {
+      w.style.height = "";
+      s.style.top = "";
+      x.set(0);
+      return;
+    }
+    const measure = () => {
+      const cardH = (t.firstElementChild as HTMLElement | null)?.offsetHeight ?? 0;
+      const distance = Math.max(0, t.scrollWidth - t.clientWidth);
+      // Pin the row in the middle of the screen, never under the nav.
+      const top = Math.max(96, (window.innerHeight - cardH) / 2);
+      w.style.height = `${cardH + distance}px`;
+      s.style.top = `${top}px`;
+      const start = w.getBoundingClientRect().top + window.scrollY - top;
+      m.current = { distance, top, start };
+      place(window.scrollY);
+    };
+    measure();
+    // Re-measure when anything above shifts (fonts, images) or the window resizes.
+    const ro = new ResizeObserver(measure);
+    ro.observe(document.body);
+    window.addEventListener("resize", measure);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+    // place/x are stable for this component's lifetime.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pinned]);
+
   return (
-    <section id="services" className="px-4 pb-4 pt-[120px]">
+    <section id="services" className="overflow-x-clip px-4 pb-4 pt-[120px]">
       <SectionHead index="01" label={services.label} title={services.title} />
-      <div className="grid gap-2 md:grid-cols-2">
-        {services.items.map((item, i) => (
-          <Reveal key={item.title} delay={(i % 2) * 0.1}>
-            <Card item={item} />
-          </Reveal>
-        ))}
+      <div ref={wrap} className="relative">
+        <div ref={sticky} className={pinned ? "sticky" : ""}>
+          <div
+            className={
+              pinned
+                ? ""
+                : "-mx-4 snap-x snap-mandatory scroll-px-4 overflow-x-auto px-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+            }
+          >
+            <motion.div ref={track} className="flex gap-5" style={pinned ? { x } : undefined}>
+              {services.items.map((item, i) => (
+                <Reveal
+                  key={item.title}
+                  y={32}
+                  delay={0.2 + i * 0.08}
+                  className="shrink-0 basis-[calc(50%-10px)] snap-start max-[999px]:basis-[80%] max-[809px]:basis-[88%]"
+                >
+                  <Card item={item} />
+                </Reveal>
+              ))}
+            </motion.div>
+          </div>
+        </div>
       </div>
     </section>
   );

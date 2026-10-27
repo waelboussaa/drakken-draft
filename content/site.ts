@@ -90,38 +90,37 @@ export const proof = {
   ],
 };
 
-export type ServiceIcon = "ehouse" | "scada" | "instrument" | "hazard";
-
 export const services = {
   label: "What We Deliver",
   title: "Four service lines, one accountable integrator",
+  // Each card names its solutions and links to its service page on drakken.co (brief §4).
   items: [
     {
       title: "Power Distribution & E-Houses",
-      icon: "ehouse" as ServiceIcon,
-      solutions: ["E-houses", "LV/MV switchgear up to 33kV", "Power management systems", "Arc-flash protection"],
-      href: "/projects?service=Power%20Distribution%20%26%20E-Houses",
+      subtitle: "E-houses · LERs · MV/LV switchgear · PMS",
+      body: "Engineered power from single-line diagram to energised, load-tested switchgear up to 33 kV, packaged in modular E-houses.",
+      href: "https://drakken.co/power-distribution-protection/",
       image: { src: "/photos/emem-switchgear.webp", alt: "Switchgear corridor inside a Drakken E-house" },
     },
     {
       title: "SCADA & Control Systems",
-      icon: "scada" as ServiceIcon,
-      solutions: ["SCADA & DCS", "PLC programming", "Safety instrumented systems (IEC 61511)", "High-performance HMI (ISA 101)"],
-      href: "/projects?service=SCADA%20%26%20Control%20Systems",
+      subtitle: "ICSS · DCS · PLC · SIS · ISA-101 HMI",
+      body: "Platform-agnostic control engineering across Siemens, Rockwell, ABB, Yokogawa, Emerson, Honeywell and Schneider.",
+      href: "https://drakken.co/scada-control-systems/",
       image: { src: "/photos/service-scada.webp", alt: "An engineer monitoring a power management system on control screens" },
     },
     {
       title: "Instrumentation",
-      icon: "instrument" as ServiceIcon,
-      solutions: ["Sizing & detailed design", "Procurement & vendor management", "Hazardous-area instrumentation", "Calibration & loop verification"],
-      href: "/projects?service=Instrumentation",
+      subtitle: "Hazardous-area design · sizing · field devices",
+      body: "Senior-led instrumentation from IEC 60079 hazardous-area design through commissioned, verified field devices.",
+      href: "https://drakken.co/instrumentation/",
       image: { src: "/photos/service-instrumentation.webp", alt: "A technician configuring a field instrument with a handheld communicator" },
     },
     {
       title: "High Risk Environments",
-      icon: "hazard" as ServiceIcon,
-      solutions: ["Factory acceptance testing", "On-site integration & black start", "Logistics, security & compliance", "HSSE & local talent"],
-      href: "/projects?service=High%20Risk%20Environments",
+      subtitle: "Logistics · security · customs · local partners",
+      body: "We handle the customs, security and logistics in places like Iraq and Nigeria, so engineering stays on schedule.",
+      href: "https://drakken.co/high-risk-environments/",
       image: { src: "/photos/service-high-risk.webp", alt: "Offshore crew working at height over open water" },
     },
   ],
