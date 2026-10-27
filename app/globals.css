@@ -1,13 +1,5 @@
 @import "tailwindcss";
 
-/* Aspekta (OFL): the hero's display face, as on the drakken-website build. */
-@font-face {
-  font-family: "Aspekta";
-  src: url("https://cdn.jsdelivr.net/gh/ivodolenc/aspekta@2.000/fonts/variable/AspektaVF.woff2") format("woff2");
-  font-weight: 50 1000;
-  font-display: swap;
-}
-
 @theme {
   /* Drakken brand (designer brief, section 6). "teal" names kept from the
      reference build; they now carry Drakken's dark greens. */
@@ -38,10 +30,6 @@
 
   --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-mono: var(--font-pt-mono), ui-monospace, monospace;
-  /* Hero only: display face and mono labels from the drakken-website build. */
-  --font-display: "Aspekta", var(--font-geist), system-ui, sans-serif;
-  --font-label: var(--font-geist-mono), ui-monospace, monospace;
-
   --ease-framer: cubic-bezier(0.44, 0, 0.56, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }

@@ -6,6 +6,7 @@ import { Fragment, useEffect, useRef } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { hero } from "@/content/site";
 import { useScrollRow } from "@/lib/useScrollRow";
+import { ArrowButton } from "@/components/ui/ArrowButton";
 
 // Hero ported from the drakken-website build (src/components/Hero.jsx + styles.css).
 // Load-in follows the reference: heading → body → buttons → featured card.
@@ -95,25 +96,6 @@ function Arrow({ dir }: { dir: 1 | -1 }) {
   );
 }
 
-/** Square mono-label button. On hover the icon nudges right and the label tucks in. */
-function HeroButton({ href, variant, children }: { href: string; variant: "accent" | "glass"; children: React.ReactNode }) {
-  const tone =
-    variant === "accent"
-      ? "bg-accent text-white hover:bg-[#008C53]"
-      : "bg-[rgba(16,35,30,0.4)] text-white hover:bg-[rgba(16,35,30,0.65)]";
-  return (
-    <Link
-      href={href}
-      className={`inline-flex h-10 items-center justify-center gap-2 overflow-hidden whitespace-nowrap py-[11.5px] pl-[14px] pr-4 font-label text-[12px] font-medium uppercase backdrop-blur-[10px] transition-[padding,gap,background-color] duration-[400ms] ease-[cubic-bezier(.34,1.25,.64,1)] hover:gap-1 hover:pl-[18px] ${tone}`}
-    >
-      <span className="size-4 shrink-0">
-        <CornerArrow />
-      </span>
-      <span>{children}</span>
-    </Link>
-  );
-}
-
 export function Hero() {
   const [row, step] = useScrollRow<HTMLDivElement>();
   const video = useRef<HTMLVideoElement>(null);
@@ -147,22 +129,24 @@ export function Hero() {
           text={hero.title}
           delay={0.15}
           stagger={0.05}
-          className="max-w-[820px] font-display text-[64px] font-medium leading-none tracking-[-2px] max-[1199px]:text-[56px] max-[809px]:text-[40px] max-[809px]:tracking-[-1.4px]"
+          className="max-w-[820px] text-[64px] font-medium leading-[1.02] tracking-[-0.035em] [text-shadow:0_2px_24px_rgba(0,0,0,0.3)] max-[1199px]:text-[56px] max-[809px]:text-[40px]"
         />
 
         <div className="flex flex-col gap-16">
           <div className="flex items-end justify-between gap-8 max-[1199px]:flex-col max-[1199px]:items-start">
-            <div className="flex w-[520px] max-w-full flex-col gap-8 max-[1199px]:w-[444px] max-[809px]:w-full">
+            <div className="flex w-[580px] max-w-full flex-col gap-7 max-[809px]:w-full">
               <Appear y={16} delay={0.5} duration={0.8}>
-                <p className="font-display text-[16px] font-medium leading-[1.4] tracking-[-0.3px]">{hero.body}</p>
+                <p className="text-[clamp(1.075rem,1.45vw,1.3rem)] leading-[1.45] tracking-[-0.02em] text-white/90 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
+                  {hero.body}
+                </p>
               </Appear>
               <Appear y={12} delay={0.62} duration={0.6} className="flex flex-wrap gap-3">
-                <HeroButton href={hero.primary.href} variant="accent">
+                <ArrowButton href={hero.primary.href} variant="green">
                   {hero.primary.label}
-                </HeroButton>
-                <HeroButton href={hero.secondary.href} variant="glass">
+                </ArrowButton>
+                <ArrowButton href={hero.secondary.href} variant="glass">
                   {hero.secondary.label}
-                </HeroButton>
+                </ArrowButton>
               </Appear>
             </div>
 
@@ -183,10 +167,10 @@ export function Hero() {
                     </div>
                     <div className="flex min-w-0 flex-1 flex-col justify-between py-2">
                       <div className="flex flex-col gap-3">
-                        <p className="font-label text-[12px] font-medium uppercase leading-[1.4] text-[#B3BEB7]">Featured projects</p>
-                        <p className="font-display text-[16px] font-medium leading-[1.4] tracking-[-0.32px] text-white">{f.text}</p>
+                        <p className="text-eyebrow text-[#B3BEB7]">Featured projects</p>
+                        <p className="text-[16px] font-medium leading-[1.4] tracking-[-0.02em] text-white">{f.text}</p>
                       </div>
-                      <Link href={f.href} className="inline-flex items-center gap-2 pb-2 font-display text-[14px] font-medium tracking-[-0.28px]">
+                      <Link href={f.href} className="inline-flex items-center gap-2 pb-2 text-[14px] font-medium tracking-[-0.02em]">
                         <span className="text-[#D8E0A7]">
                           <CornerArrow />
                         </span>

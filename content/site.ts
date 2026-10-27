@@ -39,8 +39,8 @@ export const hero = {
   body: "Power distribution, E-houses, control systems and instrumentation, engineered and commissioned by one team, from FEED to first power.",
   video: "/media/hero.webm",
   poster: "/photos/emem-exterior.webp",
-  primary: { label: "See our projects", href: "/projects" },
-  secondary: { label: "Speak to an engineer", href: "/#contact" },
+  primary: { label: "See Our Projects", href: "/projects" },
+  secondary: { label: "Speak to an Engineer", href: "/#contact" },
   featured: [
     {
       text: "EMEM FPSO, Nigeria: a 300-tonne power and automation E-house delivered on track for First Oil",
