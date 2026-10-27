@@ -8,7 +8,7 @@ import { hero } from "@/content/site";
 import { useScrollRow } from "@/lib/useScrollRow";
 
 // Hero ported from the drakken-website build (src/components/Hero.jsx + styles.css).
-// Load-in follows the reference: heading → body → buttons → featured card → divider → stats.
+// Load-in follows the reference: heading → body → buttons → featured card.
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -215,20 +215,6 @@ export function Hero() {
                 </button>
               </div>
             </Appear>
-          </div>
-
-          <div className="flex flex-col gap-8">
-            <Appear y={0} delay={0.9} duration={0.9} className="h-px w-full bg-white/15" />
-            <div className="grid grid-cols-3 max-[809px]:grid-cols-1 max-[809px]:gap-2">
-              {hero.highlights.map((h, i) => (
-                <Appear key={h.label} y={16} delay={0.95 + i * 0.08} duration={0.8}>
-                  <p className="font-label text-[12px] font-medium uppercase leading-[1.4] text-[#B3BEB7]">
-                    {h.strong && <strong className="font-bold text-[#D8E0A7]">{h.strong} </strong>}
-                    {h.label}
-                  </p>
-                </Appear>
-              ))}
-            </div>
           </div>
         </div>
       </div>

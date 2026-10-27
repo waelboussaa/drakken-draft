@@ -32,8 +32,8 @@ export const nav = {
   cta: { label: "Speak to an Engineer", href: "/#contact" },
 };
 
-// Hero ported from the drakken-website build: Drakken's own hero video (from drakken.co),
-// a featured-projects carousel and three highlights.
+// Hero ported from the drakken-website build: Drakken's own hero video (from drakken.co)
+// and a featured-projects carousel.
 export const hero = {
   title: "E&I and automation EPC for the world’s toughest oil, gas and power projects.",
   body: "Power distribution, E-houses, control systems and instrumentation, engineered and commissioned by one team, from FEED to first power.",
@@ -62,11 +62,6 @@ export const hero = {
       image: "/photos/demir-dagh.webp",
       href: "/projects",
     },
-  ],
-  highlights: [
-    { strong: "18", label: "Countries delivered" },
-    { strong: "4", label: "Continents" },
-    { strong: "", label: "Dubai HQ · Calgary office" },
   ],
 };
 
