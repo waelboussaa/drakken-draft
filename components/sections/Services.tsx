@@ -75,7 +75,7 @@ function Card({ item }: { item: (typeof services.items)[number] }) {
       <div className="relative z-[1] flex w-[min(436px,100%)] flex-col gap-6 bg-[rgba(16,35,30,0.45)] px-8 py-6 backdrop-blur-[50px] max-[809px]:p-5">
         <div className="flex flex-col items-start gap-2">
           {/* Non-breaking hyphen so "E-Houses" never splits across lines. */}
-          <h3 className="text-[20px] font-medium leading-[1.2] tracking-[-0.02em]">{item.title.replace("E-", "E‑")}</h3>
+          <h3 className="text-h4">{item.title.replace("E-", "E‑")}</h3>
           <p className="text-eyebrow text-white/70">{item.subtitle}</p>
         </div>
         <p className="text-body text-white/70">{item.body}</p>

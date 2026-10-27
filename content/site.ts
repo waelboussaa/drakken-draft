@@ -92,7 +92,8 @@ export const proof = {
 
 export const services = {
   label: "What We Deliver",
-  title: "Four service lines, one accountable integrator",
+  // Two-tone section titles: [lead phrase, rest]; the rest shows in a softer tone.
+  title: ["Four service lines,", "one accountable integrator"] as const,
   // Each card names its solutions and links to its service page on drakken.co (brief §4).
   items: [
     {
@@ -128,7 +129,7 @@ export const services = {
 
 export const process = {
   label: "How We Deliver",
-  title: "One team, FEED to first power",
+  title: ["One team,", "FEED to first power"] as const,
   // Wording follows the service pages on drakken.co.
   steps: [
     { title: "Engineering", text: "FEED, detailed design and construction work packages, for greenfield and brownfield projects." },
@@ -141,7 +142,7 @@ export const process = {
 
 export const credentials = {
   label: "Credentials",
-  title: "Engineered to the standards the work demands",
+  title: ["Engineered to the standards", "the work demands"] as const,
   // Standards and certifications named on drakken.co. The brief also asks for ISO and HSE
   // credentials, which the site does not publish: add them here once supplied.
   items: [
@@ -155,7 +156,7 @@ export const credentials = {
 
 export const testimonials = {
   label: "Testimonials",
-  title: "What clients say once the power is on",
+  title: ["What clients say", "once the power is on"] as const,
   // The four quotes published on drakken.co, with the same logos and attributions.
   items: [
     {
@@ -214,7 +215,7 @@ export const news = {
 
 export const contact = {
   label: "Get in Touch",
-  title: "Have a project in a hard place? Let's talk.",
+  title: ["Have a project in a hard place?", "Let's talk."] as const,
   ctas: [
     { label: "Request a Proposal", href: "mailto:info@drakken.co?subject=Request%20for%20proposal" },
     { label: "Request a Capability Review", href: "mailto:info@drakken.co?subject=Capability%20review" },

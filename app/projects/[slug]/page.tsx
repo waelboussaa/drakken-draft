@@ -58,7 +58,7 @@ export default async function CaseStudyPage({ params }: Props) {
               {c.facility}
             </Label>
           </span>
-          <h1 className="text-hero">{c.title}</h1>
+          <h1 className="text-display">{c.title}</h1>
           <p className="text-body-lg max-w-[600px] text-white/85">{c.summary}</p>
         </div>
       </header>
@@ -78,7 +78,7 @@ export default async function CaseStudyPage({ params }: Props) {
         <div className="flex flex-col gap-14">
           <Reveal className="flex flex-col items-start gap-5">
             <SectionLabel>The Challenge</SectionLabel>
-            <p className="text-lead">{c.challenge}</p>
+            <p className="text-h3 font-normal">{c.challenge}</p>
           </Reveal>
           <Reveal className="flex flex-col items-start gap-5">
             <SectionLabel>What We Delivered</SectionLabel>
@@ -100,7 +100,7 @@ export default async function CaseStudyPage({ params }: Props) {
               </Label>
             </span>
             <div className="flex flex-col gap-3">
-              <span className="text-[clamp(3.5rem,8vw,6.5rem)] font-medium leading-none tracking-[-0.05em]">{c.result.value}</span>
+              <span className="text-display">{c.result.value}</span>
               <span className="text-body-lg">{c.result.label}</span>
             </div>
           </div>
@@ -135,7 +135,7 @@ export default async function CaseStudyPage({ params }: Props) {
       {/* Related projects */}
       <section className="px-4 py-[120px]">
         <div className="mb-10 flex items-end justify-between gap-6">
-          <h2 className="text-h2 !text-[clamp(2rem,3.5vw,2.75rem)]">Related projects</h2>
+          <h2 className="text-h2">Related projects</h2>
           <ArrowButton href="/projects" variant="dark">
             All Projects
           </ArrowButton>

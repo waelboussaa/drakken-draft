@@ -38,7 +38,7 @@ export default function ProjectsPage() {
       </Suspense>
 
       <section className="px-4 pb-[120px] pt-8">
-        <h2 className="mb-8 text-[clamp(1.75rem,3vw,2.5rem)] font-medium leading-none tracking-[-0.05em]">More of our work</h2>
+        <h2 className="mb-8 text-h3">More of our work</h2>
         <ul className="border-t border-line">
           {moreProjects.map((p) => (
             <li
@@ -46,7 +46,7 @@ export default function ProjectsPage() {
               className="grid gap-x-8 gap-y-2 border-b border-line py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]"
             >
               <div className="flex flex-col gap-1">
-                <h3 className="text-[clamp(1.25rem,2vw,1.6rem)] font-medium tracking-[-0.04em]">{p.title}</h3>
+                <h3 className="text-h4">{p.title}</h3>
                 <span className="text-eyebrow text-muted">{[p.client, p.location].filter(Boolean).join(" · ")}</span>
               </div>
               <p className="text-body-lg text-muted">{p.text}</p>

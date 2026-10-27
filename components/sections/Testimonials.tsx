@@ -11,8 +11,8 @@ export function Testimonials() {
         {testimonials.items.map((t, i) => (
           <Reveal key={t.name} delay={(i % 2) * 0.08} className="h-full">
             <figure className="flex h-full flex-col justify-between gap-10 bg-white/5 p-6 md:p-8">
-              <blockquote className="text-[clamp(1.15rem,1.7vw,1.45rem)] leading-snug tracking-[-0.03em] text-bg">
-                <span aria-hidden className="mb-4 block h-10 text-[4.5rem] leading-[0.9] text-accent">“</span>
+              <blockquote className="text-lead text-bg">
+                <span aria-hidden className="mb-4 block h-10 text-display leading-[0.9] text-accent">“</span>
                 {t.quote}
               </blockquote>
               <figcaption className="flex items-center justify-between gap-6 border-t border-white/10 pt-5">

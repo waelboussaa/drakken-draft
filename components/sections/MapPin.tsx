@@ -25,7 +25,7 @@ export function MapPin({ pin, delay }: { pin: Pin; delay: number }) {
     <>
       <span className="pointer-events-none absolute bottom-6 left-1/2 flex -translate-x-1/2 flex-col items-center whitespace-nowrap bg-[rgba(232,229,220,0.85)] px-2.5 py-1.5 text-eyebrow text-teal opacity-0 backdrop-blur-[3px] transition-all duration-300 group-hover:-translate-y-1 group-hover:opacity-100 group-focus-visible:opacity-100">
         {pin.label}
-        {pin.sub && <span className="text-[10px] text-muted">{pin.sub}</span>}
+        {pin.sub && <span className="text-micro text-muted">{pin.sub}</span>}
       </span>
       <span className="relative block -translate-x-1/2 -translate-y-1/2">
         {/* Each pin pops in when the map arrives, staggered by its index, then the pulse starts. */}

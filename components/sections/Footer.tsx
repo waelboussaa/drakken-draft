@@ -29,7 +29,7 @@ function Clocks() {
 
 function FooterLink({ href, children }: { href: string; children: string }) {
   return (
-    <Link href={href} className="group relative inline-block w-fit text-[18px] tracking-[-0.03em]">
+    <Link href={href} className="group relative inline-block w-fit text-body-lg">
       {children}
       <span className="absolute inset-x-0 -bottom-0.5 h-px origin-right scale-x-0 bg-accent transition-transform duration-300 ease-out-expo group-hover:origin-left group-hover:scale-x-100" />
     </Link>
@@ -57,8 +57,8 @@ export function Footer() {
     <footer className="bg-teal px-4 pt-14 text-bg">
       <div className="flex flex-col justify-between gap-12 md:flex-row">
         <div className="flex max-w-[280px] flex-col gap-4">
-          <p className="text-[18px] leading-[1.35] tracking-[-0.03em]">{footer.blurb}</p>
-          <p className="flex flex-col gap-1 text-[18px] tracking-[-0.03em]">
+          <p className="text-body-lg">{footer.blurb}</p>
+          <p className="flex flex-col gap-1 text-body-lg">
             <a href={`mailto:${contactDetails.email}`} className="w-fit underline decoration-bg/30 underline-offset-4 hover:decoration-accent">
               {contactDetails.email}
             </a>

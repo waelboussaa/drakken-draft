@@ -171,14 +171,14 @@ export function Hero() {
           parts={[{ text: hero.title.lead }, { text: hero.title.rest, className: "text-[#B3BEB7]" }]}
           delay={0.15}
           stagger={0.05}
-          className="max-w-[820px] text-[64px] font-medium leading-[1.02] tracking-[-0.035em] [text-shadow:0_2px_24px_rgba(0,0,0,0.3)] max-[1199px]:text-[56px] max-[809px]:text-[40px]"
+          className="max-w-[820px] text-display [text-shadow:0_2px_24px_rgba(0,0,0,0.3)]"
         />
 
         <div className="flex flex-col gap-16">
           <div className="flex items-end justify-between gap-8 max-[1199px]:flex-col max-[1199px]:items-start">
             <div className="flex w-[580px] max-w-full flex-col gap-7 max-[809px]:w-full">
               <Appear y={16} delay={0.5} duration={0.8}>
-                <p className="text-[clamp(1.075rem,1.45vw,1.3rem)] leading-[1.45] tracking-[-0.02em] text-white/90 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
+                <p className="text-lead text-white/90 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)]">
                   {hero.body}
                 </p>
               </Appear>
@@ -217,9 +217,9 @@ export function Hero() {
                     <div className="flex min-w-0 flex-1 flex-col justify-between py-2">
                       <div className="flex flex-col gap-3">
                         <p className="text-eyebrow text-[#B3BEB7]">Featured projects</p>
-                        <p className="text-[16px] font-medium leading-[1.4] tracking-[-0.02em] text-white">{f.text}</p>
+                        <p className="text-body font-medium text-white">{f.text}</p>
                       </div>
-                      <Link href={f.href} className="inline-flex items-center gap-2 pb-2 text-[14px] font-medium tracking-[-0.02em]">
+                      <Link href={f.href} className="inline-flex items-center gap-2 pb-2 text-body font-medium">
                         <span className="text-[#D8E0A7]">
                           <CornerArrow />
                         </span>

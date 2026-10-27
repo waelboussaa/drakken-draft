@@ -21,7 +21,7 @@ export function News() {
                 <time dateTime={n.date} className="text-eyebrow text-muted">
                   {fmt.format(new Date(n.date))}
                 </time>
-                <span className="col-span-2 row-start-2 text-[clamp(1.25rem,2vw,1.6rem)] tracking-[-0.04em] md:col-span-1 md:row-start-auto">
+                <span className="col-span-2 row-start-2 text-h3 font-normal md:col-span-1 md:row-start-auto">
                   {n.title}
                 </span>
                 <span className="col-start-2 row-start-1 grid size-[38px] place-items-center rounded-full bg-surface transition-colors group-hover:bg-lime md:col-start-auto md:row-start-auto">

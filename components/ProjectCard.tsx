@@ -19,7 +19,7 @@ export function ProjectCard({ project, sizes = "(min-width: 768px) 33vw, 100vw" 
           {project.country}
         </span>
         <span className="absolute bottom-3 right-3 flex translate-y-3 items-center gap-0.5 opacity-0 transition-all duration-500 ease-out-expo group-hover:translate-y-0 group-hover:opacity-100">
-          <span className="rounded-[22px] bg-white/25 px-4 py-2.5 text-[15px] leading-5 text-white backdrop-blur-[5px]">View Project</span>
+          <span className="rounded-[22px] bg-white/25 px-4 py-2.5 text-[15px] leading-5 tracking-[-0.02em] text-white backdrop-blur-[5px]">View Project</span>
           <span className="grid size-[38px] place-items-center rounded-full bg-white/25 text-white backdrop-blur-[5px]">
             <Arrow />
           </span>
@@ -27,7 +27,7 @@ export function ProjectCard({ project, sizes = "(min-width: 768px) 33vw, 100vw" 
       </div>
       <div className="flex flex-col gap-1.5">
         <span className="text-eyebrow text-muted">{project.services.join(" · ")}</span>
-        <h3 className="text-[22px] font-medium leading-tight tracking-[-0.04em]">{project.title}</h3>
+        <h3 className="text-h4">{project.title}</h3>
         <p className="text-body text-muted">{project.summary}</p>
       </div>
     </Link>

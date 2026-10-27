@@ -13,6 +13,6 @@ export function Label({
   tone?: keyof typeof tones;
   mono?: boolean;
 }) {
-  const type = mono ? "text-eyebrow" : "text-[15px] tracking-[-0.03em]";
+  const type = mono ? "text-eyebrow" : "text-body";
   return <span className={`inline-flex p-2 ${tones[tone]} ${type}`}>{children}</span>;
 }

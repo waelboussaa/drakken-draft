@@ -11,7 +11,7 @@ export function Featured() {
       <SectionHead
         index="02"
         label="Featured Projects"
-        title="Proven in the hardest places"
+        title={["Proven", "in the hardest places"]}
         aside={
           <ArrowButton href="/projects" variant="dark">
             All Projects

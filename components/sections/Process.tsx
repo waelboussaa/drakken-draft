@@ -25,8 +25,8 @@ function Step({ step, i, total, progress, reduce }: { step: (typeof process.step
         <motion.span className="size-2 rounded-full bg-accent" style={reduce ? undefined : { opacity: dotFill, scale: dotFill }} />
       </motion.span>
       <motion.div className="flex flex-col gap-3" style={reduce ? undefined : { opacity: copyOpacity, y: copyY }}>
-        <span className="text-[clamp(3rem,5vw,4.5rem)] font-medium leading-none tracking-[-0.05em] text-accent-light md:mt-4">0{i + 1}</span>
-        <h3 className="text-[clamp(1.5rem,2.2vw,1.9rem)] font-medium tracking-[-0.04em]">{step.title}</h3>
+        <span className="text-display text-accent-light md:mt-4">0{i + 1}</span>
+        <h3 className="text-h3">{step.title}</h3>
         <p className="text-body max-w-[260px] text-bg/70">{step.text}</p>
       </motion.div>
     </li>

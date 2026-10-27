@@ -34,39 +34,69 @@
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Type scale measured from the reference layout, fluid below desktop. */
-@utility text-hero {
-  font-size: clamp(2.5rem, 5vw + 0.5rem, 4rem);
+/* Type scale: one style per role, used on every page. Sizes are at 1440px wide and scale
+   down fluidly. Geist 400/500 for text, PT Mono for labels. */
+
+/* 64px: hero headline, closing call to action, big figures. */
+@utility text-display {
+  font-size: clamp(2.5rem, 4.45vw, 4rem);
+  line-height: 1.02;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+/* 52px: every section title. Kept below the hero so the hierarchy reads. */
+@utility text-h2 {
+  font-size: clamp(2rem, 3.6vw, 3.25rem);
+  line-height: 1.05;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+/* 24px: step titles, news headlines, credential names, statements. */
+@utility text-h3 {
+  font-size: clamp(1.25rem, 1.7vw, 1.5rem);
   line-height: 1.2;
   font-weight: 500;
+  letter-spacing: -0.03em;
+}
+/* 20px: card titles. */
+@utility text-h4 {
+  font-size: 1.25rem;
+  line-height: 1.25;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+}
+/* 20px: intro paragraphs and quotes. */
+@utility text-lead {
+  font-size: clamp(1.125rem, 1.4vw, 1.25rem);
+  line-height: 1.45;
   letter-spacing: -0.02em;
 }
-@utility text-h2 {
-  font-size: clamp(2.5rem, 5.2vw, 4.75rem);
-  line-height: 1;
-  font-weight: 500;
-  letter-spacing: -0.05em;
-}
-@utility text-lead {
-  font-size: clamp(1.625rem, 3vw, 2.375rem);
-  line-height: 1.2;
-  letter-spacing: -0.05em;
-}
+/* 18px: supporting paragraphs, footer links. */
 @utility text-body-lg {
-  font-size: 1.14rem;
-  line-height: 1.35;
-  letter-spacing: -0.03em;
+  font-size: 1.125rem;
+  line-height: 1.45;
+  letter-spacing: -0.02em;
 }
+/* 15px: body text, buttons, card descriptions. */
 @utility text-body {
-  font-size: 0.94rem;
-  line-height: 1.35;
-  letter-spacing: -0.03em;
+  font-size: 0.9375rem;
+  line-height: 1.45;
+  letter-spacing: -0.015em;
 }
+/* 13px mono caps: section labels, tags, eyebrows. */
 @utility text-eyebrow {
   font-family: var(--font-mono);
-  font-size: 0.81rem;
+  font-size: 0.8125rem;
   line-height: 1.2;
   letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+/* 11px mono caps: smallest labels (map tooltips). */
+@utility text-micro {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
 }
 

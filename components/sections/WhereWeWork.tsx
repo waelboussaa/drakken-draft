@@ -10,7 +10,7 @@ export function WhereWeWork() {
       <SectionHead
         index="04"
         label="Where We Work"
-        title="18 countries, four continents"
+        title={["18 countries,", "four continents"]}
         aside={
           <>
             <p className="text-body-lg max-w-[320px] text-muted">Select a pin to open a featured project.</p>

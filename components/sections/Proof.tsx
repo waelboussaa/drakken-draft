@@ -12,7 +12,7 @@ export function Proof() {
       <div className="grid grid-cols-2 md:grid-cols-4">
         {proof.stats.map((s, i) => (
           <Reveal key={s.label} delay={i * 0.1} className="flex flex-col gap-3 bg-teal px-4 py-10 md:px-6 md:py-14">
-            <span className="text-[clamp(2.75rem,5vw,4rem)] font-medium text-accent-light leading-none tracking-[-0.04em]">
+            <span className="text-display text-accent-light">
               <Counter value={s.value} suffix={s.suffix} />
             </span>
             <span className="text-body text-bg/75">{s.label}</span>
