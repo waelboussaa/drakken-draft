@@ -164,9 +164,7 @@ export function Hero() {
         playsInline
         aria-hidden
       />
-      {/* Darker than the reference so the clip seams and haze recede behind the text. */}
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,30,0.72)_0%,rgba(16,35,30,0.55)_45%,rgba(16,35,30,0.88)_100%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,35,30,0.45)_0%,rgba(16,35,30,0)_60%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,30,0.55)_0%,rgba(16,35,30,0.35)_45%,rgba(16,35,30,0.75)_100%)]" />
 
       <div className="relative flex h-full flex-col justify-between px-4 pb-8 pt-[120px] max-[809px]:gap-12 max-[809px]:pt-[104px]">
         <SplitTitle
