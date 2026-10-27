@@ -70,6 +70,16 @@
   text-transform: uppercase;
 }
 
+/* Hero featured-projects card: the bar fills while a slide is showing, then it advances. */
+@keyframes hero-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 @keyframes marquee {
   to {
     transform: translateX(-50%);

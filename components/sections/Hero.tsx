@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { hero } from "@/content/site";
 import { useScrollRow } from "@/lib/useScrollRow";
@@ -40,17 +40,30 @@ function Appear({
   );
 }
 
-/** Headline whose words rise out of their own mask, one after another, on mount. */
-function SplitTitle({ text, className, delay = 0, stagger = 0.045 }: { text: string; className?: string; delay?: number; stagger?: number }) {
+/**
+ * Headline whose words rise out of their own mask, one after another, on mount.
+ * `parts` are runs of text with their own colour, so the headline can be two-tone.
+ */
+function SplitTitle({
+  parts,
+  className,
+  delay = 0,
+  stagger = 0.045,
+}: {
+  parts: { text: string; className?: string }[];
+  className?: string;
+  delay?: number;
+  stagger?: number;
+}) {
   const reduce = useReducedMotion();
-  const words = text.split(" ");
+  const words = parts.flatMap((p) => p.text.split(" ").map((w) => ({ w, className: p.className })));
   return (
-    <h1 aria-label={text} className={className}>
-      {words.map((w, i) => (
+    <h1 aria-label={parts.map((p) => p.text).join(" ")} className={className}>
+      {words.map(({ w, className: tone }, i) => (
         // The space sits outside the mask: trailing whitespace inside an inline-block is dropped.
         <Fragment key={i}>
           {/* Padding plus a matching negative margin stops the mask clipping descenders. */}
-          <span aria-hidden className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-top">
+          <span aria-hidden className={`inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-top ${tone ?? ""}`}>
             <motion.span
               className="inline-block"
               initial={reduce ? false : { y: "105%" }}
@@ -96,20 +109,49 @@ function Arrow({ dir }: { dir: 1 | -1 }) {
   );
 }
 
+// How long each featured project shows before the card moves on.
+const SLIDE_MS = 6000;
+
 export function Hero() {
   const [row, step] = useScrollRow<HTMLDivElement>();
   const video = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
+  const [active, setActive] = useState(0);
+  // Bumped whenever the visible slide changes, to restart the progress bar from empty.
+  const [cycle, setCycle] = useState(0);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
+  const paused = hovered || focused;
 
   // Respect reduced motion: keep the poster frame instead of playing the video.
   useEffect(() => {
     if (reduce) video.current?.pause();
   }, [reduce]);
 
+  // Track which slide is showing, whether it got there by arrow, drag or auto-advance.
+  useEffect(() => {
+    const el = row.current;
+    if (!el) return;
+    const onScroll = () => {
+      const gap = parseFloat(getComputedStyle(el).columnGap) || 0;
+      setActive(Math.round(el.scrollLeft / (el.clientWidth + gap)));
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [row]);
+
+  useEffect(() => setCycle((c) => c + 1), [active]);
+
+  // When the bar fills: next project, or back to the first after the last.
+  const advance = () => {
+    if (active < hero.featured.length - 1) step(1);
+    else row.current?.scrollTo({ left: 0, behavior: "smooth" });
+  };
+
   return (
     <section
       id="top"
-      className="relative h-[800px] overflow-hidden bg-teal-2 text-white max-[809px]:h-auto max-[809px]:min-h-svh"
+      className="relative h-svh min-h-[680px] overflow-hidden bg-teal-2 text-white max-[809px]:h-auto max-[809px]:min-h-svh"
     >
       <video
         ref={video}
@@ -122,11 +164,13 @@ export function Hero() {
         playsInline
         aria-hidden
       />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,30,0.55)_0%,rgba(16,35,30,0.35)_45%,rgba(16,35,30,0.75)_100%)]" />
+      {/* Darker than the reference so the clip seams and haze recede behind the text. */}
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,30,0.72)_0%,rgba(16,35,30,0.55)_45%,rgba(16,35,30,0.88)_100%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(16,35,30,0.45)_0%,rgba(16,35,30,0)_60%)]" />
 
       <div className="relative flex h-full flex-col justify-between px-4 pb-8 pt-[120px] max-[809px]:gap-12 max-[809px]:pt-[104px]">
         <SplitTitle
-          text={hero.title}
+          parts={[{ text: hero.title.lead }, { text: hero.title.rest, className: "text-[#B3BEB7]" }]}
           delay={0.15}
           stagger={0.05}
           className="max-w-[820px] text-[64px] font-medium leading-[1.02] tracking-[-0.035em] [text-shadow:0_2px_24px_rgba(0,0,0,0.3)] max-[1199px]:text-[56px] max-[809px]:text-[40px]"
@@ -154,8 +198,15 @@ export function Hero() {
               y={32}
               delay={0.75}
               duration={0.9}
-              className="relative w-[444px] shrink-0 bg-[rgba(16,35,30,0.35)] p-3 backdrop-blur-[20px] max-[809px]:w-full"
+              className="relative w-[444px] shrink-0 overflow-hidden bg-[rgba(16,35,30,0.35)] p-3 backdrop-blur-[20px] max-[809px]:w-full"
             >
+              {/* Hover, keyboard focus or a drag pauses the auto-advance. */}
+              <div
+                onMouseEnter={() => setHovered(true)}
+                onMouseLeave={() => setHovered(false)}
+                onFocus={() => setFocused(true)}
+                onBlur={(e) => !e.currentTarget.contains(e.relatedTarget) && setFocused(false)}
+              >
               <div
                 ref={row}
                 className="flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&.is-dragging]:cursor-grabbing [&::-webkit-scrollbar]:hidden"
@@ -180,12 +231,12 @@ export function Hero() {
                   </article>
                 ))}
               </div>
-              <div className="absolute bottom-3 right-3 flex gap-1 max-[809px]:static max-[809px]:mt-3 max-[809px]:justify-end">
+              <div className="absolute bottom-3 right-3 flex gap-1.5 max-[809px]:static max-[809px]:mt-3 max-[809px]:justify-end">
                 <button
                   type="button"
                   aria-label="Previous project"
                   onClick={() => step(-1)}
-                  className="grid h-10 w-14 place-items-center bg-white/5 text-white backdrop-blur-[10px] transition-colors hover:bg-white/15"
+                  className="grid size-10 place-items-center rounded-full bg-white/10 text-white backdrop-blur-[10px] transition-colors hover:bg-white/20"
                 >
                   <Arrow dir={-1} />
                 </button>
@@ -193,11 +244,27 @@ export function Hero() {
                   type="button"
                   aria-label="Next project"
                   onClick={() => step(1)}
-                  className="grid h-10 w-14 place-items-center bg-white/5 text-white backdrop-blur-[10px] transition-colors hover:bg-white/15"
+                  className="grid size-10 place-items-center rounded-full bg-white/10 text-white backdrop-blur-[10px] transition-colors hover:bg-white/20"
                 >
                   <Arrow dir={1} />
                 </button>
               </div>
+              </div>
+
+              {/* Progress bar: fills over SLIDE_MS, then the card moves to the next project. */}
+              {!reduce && (
+                <div aria-hidden className="absolute inset-x-0 bottom-0 h-0.5 bg-white/10">
+                  <div
+                    key={cycle}
+                    className="h-full origin-left bg-[#D8E0A7]"
+                    style={{
+                      animation: `hero-progress ${SLIDE_MS}ms linear forwards`,
+                      animationPlayState: paused ? "paused" : "running",
+                    }}
+                    onAnimationEnd={advance}
+                  />
+                </div>
+              )}
             </Appear>
           </div>
         </div>

@@ -35,7 +35,8 @@ export const nav = {
 // Hero ported from the drakken-website build: Drakken's own hero video (from drakken.co)
 // and a featured-projects carousel.
 export const hero = {
-  title: "E&I and automation EPC for the world’s toughest oil, gas and power projects.",
+  // Two-tone: the offer in white, the rest in a softer green-grey so the offer reads first.
+  title: { lead: "E&I and automation EPC", rest: "for the world’s toughest oil, gas and power projects." },
   body: "Power distribution, E-houses, control systems and instrumentation, engineered and commissioned by one team, from FEED to first power.",
   video: "/media/hero.webm",
   poster: "/photos/emem-exterior.webp",
