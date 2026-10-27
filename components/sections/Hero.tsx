@@ -1,110 +1,237 @@
 "use client";
 
 import Image from "next/image";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import Link from "next/link";
+import { Fragment, useEffect, useRef } from "react";
+import { motion, useReducedMotion } from "motion/react";
 import { hero } from "@/content/site";
-import { ArrowButton } from "@/components/ui/ArrowButton";
+import { useScrollRow } from "@/lib/useScrollRow";
+
+// Hero ported from the drakken-website build (src/components/Hero.jsx + styles.css).
+// Load-in follows the reference: heading → body → buttons → featured card → divider → stats.
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
-export function GridLines({ className = "border-white/15" }: { className?: string }) {
+/** Fade and rise on mount. y is the start offset in px; y = 0 fades only. */
+function Appear({
+  y = 16,
+  delay = 0,
+  duration = 0.8,
+  className,
+  children,
+}: {
+  y?: number;
+  delay?: number;
+  duration?: number;
+  className?: string;
+  children?: React.ReactNode;
+}) {
   const reduce = useReducedMotion();
   return (
-    <div aria-hidden className="pointer-events-none absolute inset-0 flex px-4">
-      {/* Each column line draws down from the top, one after another. */}
-      {Array.from({ length: 4 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className={`flex-1 origin-top border-l last:border-r ${className}`}
-          initial={reduce ? false : { scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 1.6, delay: 0.15 * i, ease }}
-        />
+    <motion.div
+      className={className}
+      initial={reduce ? false : { opacity: 0, y }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration, delay, ease }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+/** Headline whose words rise out of their own mask, one after another, on mount. */
+function SplitTitle({ text, className, delay = 0, stagger = 0.045 }: { text: string; className?: string; delay?: number; stagger?: number }) {
+  const reduce = useReducedMotion();
+  const words = text.split(" ");
+  return (
+    <h1 aria-label={text} className={className}>
+      {words.map((w, i) => (
+        // The space sits outside the mask: trailing whitespace inside an inline-block is dropped.
+        <Fragment key={i}>
+          {/* Padding plus a matching negative margin stops the mask clipping descenders. */}
+          <span aria-hidden className="inline-block overflow-hidden pb-[0.08em] -mb-[0.08em] align-top">
+            <motion.span
+              className="inline-block"
+              initial={reduce ? false : { y: "105%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 1, delay: delay + i * stagger, ease }}
+            >
+              {w}
+            </motion.span>
+          </span>
+          {i < words.length - 1 ? " " : null}
+        </Fragment>
       ))}
-    </div>
+    </h1>
+  );
+}
+
+/** "↳" corner arrow used on every hero button. */
+function CornerArrow() {
+  return (
+    <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.3" strokeLinecap="square" aria-hidden>
+      <path d="M4 3v7h8" />
+      <path d="m9.5 7.5 2.5 2.5-2.5 2.5" />
+    </svg>
+  );
+}
+
+function Arrow({ dir }: { dir: 1 | -1 }) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      width="16"
+      height="16"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.3"
+      strokeLinecap="square"
+      aria-hidden
+      style={dir < 0 ? { transform: "scaleX(-1)" } : undefined}
+    >
+      <path d="M2.5 8h11" />
+      <path d="M9 3.5 13.5 8 9 12.5" />
+    </svg>
+  );
+}
+
+/** Square mono-label button. On hover the icon nudges right and the label tucks in. */
+function HeroButton({ href, variant, children }: { href: string; variant: "accent" | "glass"; children: React.ReactNode }) {
+  const tone =
+    variant === "accent"
+      ? "bg-accent text-white hover:bg-[#008C53]"
+      : "bg-[rgba(16,35,30,0.4)] text-white hover:bg-[rgba(16,35,30,0.65)]";
+  return (
+    <Link
+      href={href}
+      className={`inline-flex h-10 items-center justify-center gap-2 overflow-hidden whitespace-nowrap py-[11.5px] pl-[14px] pr-4 font-label text-[12px] font-medium uppercase backdrop-blur-[10px] transition-[padding,gap,background-color] duration-[400ms] ease-[cubic-bezier(.34,1.25,.64,1)] hover:gap-1 hover:pl-[18px] ${tone}`}
+    >
+      <span className="size-4 shrink-0">
+        <CornerArrow />
+      </span>
+      <span>{children}</span>
+    </Link>
   );
 }
 
 export function Hero() {
-  const ref = useRef<HTMLElement>(null);
+  const [row, step] = useScrollRow<HTMLDivElement>();
+  const video = useRef<HTMLVideoElement>(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", reduce ? "0%" : "18%"]);
-  // The copy drifts up and fades as the hero scrolls away, instead of being dragged along with the photo.
-  const copyOpacity = useTransform(scrollYProgress, [0, 0.55], [1, reduce ? 1 : 0]);
-  const copyY = useTransform(scrollYProgress, [0, 1], ["0px", reduce ? "0px" : "-80px"]);
 
-  const rise = (delay: number) => ({
-    // Opacity and transform only: a blur filter repaints every frame and stutters on phones.
-    initial: reduce ? false : { opacity: 0, y: 40 },
-    animate: { opacity: 1, y: 0 },
-    transition: { duration: 1.1, delay, ease },
-  });
+  // Respect reduced motion: keep the poster frame instead of playing the video.
+  useEffect(() => {
+    if (reduce) video.current?.pause();
+  }, [reduce]);
 
   return (
-    <section ref={ref} className="relative flex h-svh min-h-[680px] flex-col overflow-hidden px-4 pb-4 pt-8 text-white md:px-8">
-      <motion.div className="absolute inset-0 -z-10 bg-teal" style={{ y }}>
-        <motion.div
-          className="absolute inset-0"
-          initial={reduce ? false : { scale: 1.15 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.8, ease }}
-        >
-          {hero.video ? (
-            <video
-              className="size-full object-cover grayscale-[0.75]"
-              src={hero.video}
-              poster={hero.image.src}
-              autoPlay={!reduce}
-              muted
-              loop
-              playsInline
-              aria-label={hero.image.alt}
-            />
-          ) : (
-            <Image src={hero.image.src} alt={hero.image.alt} fill priority sizes="100vw" className="object-cover grayscale-[0.75]" />
-          )}
-        </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-teal/85 via-teal/65 to-teal/90" />
-        {/* Extra darkening behind the headline so it stays legible over bright plant lights. */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_45%_at_50%_50%,rgba(16,34,29,0.55),transparent)]" />
-      </motion.div>
-      <GridLines />
+    <section
+      id="top"
+      className="relative h-[800px] overflow-hidden bg-teal-2 text-white max-[809px]:h-auto max-[809px]:min-h-svh"
+    >
+      <video
+        ref={video}
+        className="absolute inset-0 size-full object-cover"
+        src={hero.video}
+        poster={hero.poster}
+        autoPlay
+        muted
+        loop
+        playsInline
+        aria-hidden
+      />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(16,35,30,0.55)_0%,rgba(16,35,30,0.35)_45%,rgba(16,35,30,0.75)_100%)]" />
 
-      <motion.div style={{ opacity: copyOpacity, y: copyY }} className="relative flex flex-1 flex-col items-center justify-center gap-6 text-center">
-        <motion.h1
-          {...rise(0.2)}
-          className="text-balance text-[clamp(2.25rem,4.8vw,3.75rem)] font-medium leading-[1.1] tracking-[-0.03em] [text-shadow:0_2px_24px_rgba(0,0,0,0.35)] lg:text-nowrap"
-        >
-          {hero.title[0]} <br className="hidden lg:block" />
-          {hero.title[1]}
-        </motion.h1>
-        <motion.p
-          {...rise(0.35)}
-          className="max-w-[560px] text-balance text-[clamp(1.05rem,1.4vw,1.25rem)] leading-[1.4] tracking-[-0.02em] text-white/95 [text-shadow:0_1px_12px_rgba(0,0,0,0.45)] lg:max-w-none lg:text-nowrap"
-        >
-          {hero.subtitle[0]} <br className="hidden lg:block" />
-          {hero.subtitle[1]}
-        </motion.p>
-        <motion.div {...rise(0.5)} className="flex flex-wrap justify-center gap-3">
-          {hero.ctas.map((c) => (
-            <ArrowButton key={c.label} href={c.href} variant={c.variant}>
-              {c.label}
-            </ArrowButton>
-          ))}
-        </motion.div>
-      </motion.div>
+      <div className="relative flex h-full flex-col justify-between px-4 pb-8 pt-[120px] max-[809px]:gap-12 max-[809px]:pt-[104px]">
+        <SplitTitle
+          text={hero.title}
+          delay={0.15}
+          stagger={0.05}
+          className="max-w-[820px] font-display text-[64px] font-medium leading-none tracking-[-2px] max-[1199px]:text-[56px] max-[809px]:text-[40px] max-[809px]:tracking-[-1.4px]"
+        />
 
-      <motion.a
-        href="#proof"
-        className="relative self-center text-eyebrow"
-        initial={reduce ? false : { opacity: 0 }}
-        animate={reduce ? { opacity: 1 } : { opacity: 1, y: [0, 6, 0] }}
-        transition={{ opacity: { delay: 1.2, duration: 0.8 }, y: { delay: 2, duration: 2.4, repeat: Infinity, ease: "easeInOut" } }}
-      >
-        Scroll Down
-      </motion.a>
+        <div className="flex flex-col gap-16">
+          <div className="flex items-end justify-between gap-8 max-[1199px]:flex-col max-[1199px]:items-start">
+            <div className="flex w-[520px] max-w-full flex-col gap-8 max-[1199px]:w-[444px] max-[809px]:w-full">
+              <Appear y={16} delay={0.5} duration={0.8}>
+                <p className="font-display text-[16px] font-medium leading-[1.4] tracking-[-0.3px]">{hero.body}</p>
+              </Appear>
+              <Appear y={12} delay={0.62} duration={0.6} className="flex flex-wrap gap-3">
+                <HeroButton href={hero.primary.href} variant="accent">
+                  {hero.primary.label}
+                </HeroButton>
+                <HeroButton href={hero.secondary.href} variant="glass">
+                  {hero.secondary.label}
+                </HeroButton>
+              </Appear>
+            </div>
+
+            <Appear
+              y={32}
+              delay={0.75}
+              duration={0.9}
+              className="relative w-[444px] shrink-0 bg-[rgba(16,35,30,0.35)] p-3 backdrop-blur-[20px] max-[809px]:w-full"
+            >
+              <div
+                ref={row}
+                className="flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&.is-dragging]:cursor-grabbing [&::-webkit-scrollbar]:hidden"
+              >
+                {hero.featured.map((f) => (
+                  <article key={f.href + f.text} className="flex h-[184px] flex-[0_0_100%] snap-start gap-3 max-[809px]:h-auto max-[809px]:min-h-[168px]">
+                    <div className="relative w-[138px] shrink-0 overflow-hidden max-[809px]:w-[110px]">
+                      <Image src={f.image} alt="" fill sizes="140px" draggable={false} className="pointer-events-none object-cover" />
+                    </div>
+                    <div className="flex min-w-0 flex-1 flex-col justify-between py-2">
+                      <div className="flex flex-col gap-3">
+                        <p className="font-label text-[12px] font-medium uppercase leading-[1.4] text-[#B3BEB7]">Featured projects</p>
+                        <p className="font-display text-[16px] font-medium leading-[1.4] tracking-[-0.32px] text-white">{f.text}</p>
+                      </div>
+                      <Link href={f.href} className="inline-flex items-center gap-2 pb-2 font-display text-[14px] font-medium tracking-[-0.28px]">
+                        <span className="text-[#D8E0A7]">
+                          <CornerArrow />
+                        </span>
+                        Read more
+                      </Link>
+                    </div>
+                  </article>
+                ))}
+              </div>
+              <div className="absolute bottom-3 right-3 flex gap-1 max-[809px]:static max-[809px]:mt-3 max-[809px]:justify-end">
+                <button
+                  type="button"
+                  aria-label="Previous project"
+                  onClick={() => step(-1)}
+                  className="grid h-10 w-14 place-items-center bg-white/5 text-white backdrop-blur-[10px] transition-colors hover:bg-white/15"
+                >
+                  <Arrow dir={-1} />
+                </button>
+                <button
+                  type="button"
+                  aria-label="Next project"
+                  onClick={() => step(1)}
+                  className="grid h-10 w-14 place-items-center bg-white/5 text-white backdrop-blur-[10px] transition-colors hover:bg-white/15"
+                >
+                  <Arrow dir={1} />
+                </button>
+              </div>
+            </Appear>
+          </div>
+
+          <div className="flex flex-col gap-8">
+            <Appear y={0} delay={0.9} duration={0.9} className="h-px w-full bg-white/15" />
+            <div className="grid grid-cols-3 max-[809px]:grid-cols-1 max-[809px]:gap-2">
+              {hero.highlights.map((h, i) => (
+                <Appear key={h.label} y={16} delay={0.95 + i * 0.08} duration={0.8}>
+                  <p className="font-label text-[12px] font-medium uppercase leading-[1.4] text-[#B3BEB7]">
+                    {h.strong && <strong className="font-bold text-[#D8E0A7]">{h.strong} </strong>}
+                    {h.label}
+                  </p>
+                </Appear>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 }

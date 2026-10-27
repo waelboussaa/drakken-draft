@@ -32,24 +32,42 @@ export const nav = {
   cta: { label: "Speak to an Engineer", href: "/#contact" },
 };
 
+// Hero ported from the drakken-website build: Drakken's own hero video (from drakken.co),
+// a featured-projects carousel and three highlights.
 export const hero = {
-  // Shown as two lines on desktop; wraps naturally on small screens.
-  title: ["E&I and automation EPC for the world's", "toughest oil, gas and power projects"],
-  // Two lines on desktop. "E‑houses" uses a non-breaking hyphen so it never splits.
-  subtitle: [
-    "We engineer, fabricate, procure and commission power distribution, E‑houses,",
-    "control systems and instrumentation — from Dubai and Calgary to the field.",
+  title: "E&I and automation EPC for the world’s toughest oil, gas and power projects.",
+  body: "Power distribution, E-houses, control systems and instrumentation, engineered and commissioned by one team, from FEED to first power.",
+  video: "/media/hero.webm",
+  poster: "/photos/emem-exterior.webp",
+  primary: { label: "See our projects", href: "/projects" },
+  secondary: { label: "Speak to an engineer", href: "/#contact" },
+  featured: [
+    {
+      text: "EMEM FPSO, Nigeria: a 300-tonne power and automation E-house delivered on track for First Oil",
+      image: "/photos/emem-exterior.webp",
+      href: "/projects/emem-fpso-nigeria",
+    },
+    {
+      text: "NEOM, Saudi Arabia: the automation behind 140 km of desalinated-water pipeline",
+      image: "/photos/neom-pipeline.webp",
+      href: "/projects/neom-internet-of-water",
+    },
+    {
+      text: "Chemchemal, Kurdistan: a prefabricated Local Electrical Room for Pearl Petroleum",
+      image: "/photos/chemchemal-panels.webp",
+      href: "/projects/chemchemal-ler-kurdistan",
+    },
+    {
+      text: "Demir Dagh, Kurdistan: oil & gas facilities for Oryx Petroleum, delivered fast-track",
+      image: "/photos/demir-dagh.webp",
+      href: "/projects",
+    },
   ],
-  ctas: [
-    { label: "See Our Projects", href: "/projects", variant: "green" as const },
-    { label: "Speak to an Engineer", href: "/#contact", variant: "glass" as const },
+  highlights: [
+    { strong: "18", label: "Countries delivered" },
+    { strong: "4", label: "Continents" },
+    { strong: "", label: "Dubai HQ · Calgary office" },
   ],
-  // Set `video` to an MP4 in /public (e.g. "/media/hero.mp4") to switch the hero to video.
-  video: null as string | null,
-  image: {
-    src: "/photos/emem-exterior.webp",
-    alt: "A Drakken E-house module on a self-propelled transporter, ready for shipment",
-  },
 };
 
 export const proof = {

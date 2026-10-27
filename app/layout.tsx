@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, PT_Mono } from "next/font/google";
+import { Geist, Geist_Mono, PT_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/Nav";
 import { Cursor } from "@/components/ui/Cursor";
@@ -7,6 +7,8 @@ import { Footer } from "@/components/sections/Footer";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-geist", weight: ["400", "500"] });
 const ptMono = PT_Mono({ subsets: ["latin"], variable: "--font-pt-mono", weight: "400" });
+// Labels and buttons in the hero (ported from the drakken-website build).
+const geistMono = Geist_Mono({ subsets: ["latin"], variable: "--font-geist-mono", weight: ["500", "700"] });
 
 export const metadata: Metadata = {
   // A design draft for client review: keep it out of search results.
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geist.variable} ${ptMono.variable}`}>
+    <html lang="en" className={`${geist.variable} ${ptMono.variable} ${geistMono.variable}`}>
       <body>
         <Nav />
         <main>{children}</main>

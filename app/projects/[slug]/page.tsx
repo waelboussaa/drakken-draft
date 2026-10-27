@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { caseStudies } from "@/content/site";
 import { ProjectCard } from "@/components/ProjectCard";
 import { Cta } from "@/components/sections/Cta";
-import { GridLines } from "@/components/sections/Hero";
+import { GridLines } from "@/components/ui/GridLines";
 import { ArrowButton } from "@/components/ui/ArrowButton";
 import { Label } from "@/components/ui/Label";
 import { SectionLabel } from "@/components/ui/SectionLabel";
