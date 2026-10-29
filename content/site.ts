@@ -155,39 +155,64 @@ export const credentials = {
 };
 
 export const testimonials = {
-  label: "Testimonials",
-  title: ["What clients say", "once the power is on"] as const,
-  // The four quotes published on drakken.co, with the same logos and attributions.
+  label: "In Their Words",
+  // Slider order alternates leadership and client voices. Every quote is verbatim from
+  // drakken.co: client quotes from the homepage, leadership quotes from the Energy Focus
+  // interview ("Driving Smarter Power in a Complex Energy World").
+  // Each slide shows either a portrait (`image`) or the client's logo on a green tile (`logo`).
   items: [
+    {
+      quote:
+        "We are a part of their team and not just an independent third-party contractor. We can provide options to optimise cost and delivery by working closely together as a partner.",
+      name: "Ben Watts",
+      role: "Chief Executive Officer, Drakken",
+      image: { src: "/photos/leader-ben-watts.webp", alt: "Ben Watts, CEO of Drakken" },
+    },
     {
       quote:
         "By integrating Emerson’s control solutions, we’ve fully connected NEOM’s distribution network through an advanced 'Internet of Water' infrastructure. This collaboration ensures minimum water loss and positions the network at the absolute forefront of global water technology and sustainability.",
       name: "Emerson Control Solutions",
-      project: "NEOM Internet of Water",
-      logo: { src: "/clients/emerson.png", ratio: 0.684 },
-    },
-    {
-      quote:
-        "Drakken showed excellent expertise and dedication from start to finish. They addressed challenges proactively and ensured the project was delivered to our expectations.",
-      name: "VP, Engineering",
-      project: "",
-      logo: { src: "/clients/bw-energy.png", ratio: 0.865 },
+      role: "NEOM Internet of Water",
+      logo: { name: "Emerson", src: "/clients/emerson.png", ratio: 0.684 },
     },
     {
       quote:
         "Drakken is one of the best performing subcontractors who teamed up with Weatherford to deliver Garraf First Commercial Production. Their many attributes include technical competence, responsiveness, versatility & leadership.",
       name: "Paul Stewart, PM",
-      project: "Weatherford · Garraf First Commercial Production",
-      logo: { src: "/clients/weatherford.png", ratio: 1.489 },
+      role: "Weatherford · Garraf First Commercial Production",
+      logo: { name: "Weatherford", src: "/clients/weatherford.png", ratio: 1.489 },
+    },
+    {
+      quote:
+        "The approach that we take with our clients is that we are agile. We want to innovate and be flexible, and we want to be objective-driven.",
+      name: "Marcel Bruyere",
+      role: "Chief Operating Officer, Drakken",
+      image: { src: "/photos/leader-marcel-bruyere.webp", alt: "Marcel Bruyere, COO of Drakken" },
     },
     {
       quote:
         "Drakken successfully executed several projects for us in Iraq, their scope included detailed E&I engineering for a large EPC project as well as the E&I engineering & procurement services for a brownfield wellsite production facility. Drakken were particularly exceptional in sourcing instruments on extremely short lead times.",
       name: "Phil Boustead, Engineering Manager",
-      project: "Iraq",
-      logo: { src: "/clients/acwa.png", ratio: 1.108 },
+      role: "Iraq",
+      logo: { name: "ACWA", src: "/clients/acwa.png", ratio: 1.108 },
     },
-  ],
+    {
+      quote:
+        "Drakken showed excellent expertise and dedication from start to finish. They addressed challenges proactively and ensured the project was delivered to our expectations.",
+      // drakken.co shows this quote with the BW Energy logo but names no company in text.
+      name: "VP, Engineering",
+      role: "",
+      logo: { name: "BW Energy", src: "/clients/bw-energy.png", ratio: 0.865 },
+    },
+  ] as Testimonial[],
+};
+
+export type Testimonial = {
+  quote: string;
+  name: string;
+  role: string;
+  image?: { src: string; alt: string };
+  logo?: { name: string; src: string; ratio: number };
 };
 
 export const news = {
