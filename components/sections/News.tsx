@@ -9,7 +9,7 @@ const fmt = new Intl.DateTimeFormat("en-GB", { day: "2-digit", month: "short", y
 export function News() {
   return (
     <section id="news" className="px-4 py-[120px]">
-      <SectionHead index="07" label={news.label} title={news.title} />
+      <SectionHead index="08" label={news.label} title={news.title} />
       <ul className="border-t border-line">
         {news.items.map((n, i) => (
           <Reveal key={n.title} delay={i * 0.05}>

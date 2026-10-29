@@ -155,7 +155,7 @@ export function Testimonials() {
       <Reveal y={32} className="flex flex-col gap-12">
         {/* Top bar: label | counter and progress | prev / next, on the same columns as the slide. */}
         <div className="grid items-center gap-y-4 border-t border-line pt-6 lg:grid-cols-3 max-lg:grid-cols-[1fr_auto]">
-          <SectionLabel index="06">{testimonials.label}</SectionLabel>
+          <SectionLabel index="07">{testimonials.label}</SectionLabel>
           <div className="flex items-center gap-4 max-lg:order-3 max-lg:col-span-2">
             <p className="text-eyebrow tabular-nums text-ink">
               {pad(index + 1)}

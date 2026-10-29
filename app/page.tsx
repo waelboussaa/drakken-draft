@@ -5,6 +5,7 @@ import { Featured } from "@/components/sections/Featured";
 import { Process } from "@/components/sections/Process";
 import { WhereWeWork } from "@/components/sections/WhereWeWork";
 import { Credentials } from "@/components/sections/Credentials";
+import { Partners } from "@/components/sections/Partners";
 import { Testimonials } from "@/components/sections/Testimonials";
 import { News } from "@/components/sections/News";
 import { Cta } from "@/components/sections/Cta";
@@ -20,6 +21,7 @@ export default function Home() {
       <Process />
       <WhereWeWork />
       <Credentials />
+      <Partners />
       <Testimonials />
       <News />
       <Cta />

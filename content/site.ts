@@ -154,6 +154,25 @@ export const credentials = {
   ],
 };
 
+export const partners = {
+  label: "Technology Partners",
+  title: ["We integrate the equipment you already trust,", "without being tied to any of it."] as const,
+  // Logos from drakken-website. The SVGs share one 233.8 × 105 frame with the padding built
+  // in; Emerson's is a bare square icon, so it is drawn smaller (`scale`) to sit in line.
+  items: [
+    { name: "Emerson", src: "/partners/emerson.webp", scale: 0.4 },
+    { name: "Rotork", src: "/partners/rotork.svg" },
+    { name: "AEG", src: "/partners/aeg.svg" },
+    { name: "Gutor", src: "/partners/gutor.svg" },
+    { name: "Pentair", src: "/partners/pentair.svg" },
+    { name: "Weidmüller", src: "/partners/weidmuller.svg" },
+    { name: "Cooper", src: "/partners/cooper.svg" },
+    { name: "Roxtec", src: "/partners/roxtec.svg" },
+    { name: "3M", src: "/partners/3m.svg" },
+    { name: "ERICO", src: "/partners/erico.svg" },
+  ] as { name: string; src: string; scale?: number }[],
+};
+
 export const testimonials = {
   label: "In Their Words",
   // Slider order alternates leadership and client voices. Every quote is verbatim from
